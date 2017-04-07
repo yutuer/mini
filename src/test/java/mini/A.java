@@ -1,14 +1,13 @@
 package mini;
 
 import java.io.FileNotFoundException;
-import java.lang.invoke.MethodHandle;
 import java.util.Map;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.badperson.util.PropertiesReader;
+import com.badperson.App;
 import com.google.common.collect.Table;
 
 import excelParse.ExcelParse;
@@ -33,9 +32,10 @@ public class A {
 	
 	@Test
 	public void a2(){
-		String fileName = "port.properties";
-		for(String name:PropertiesReader.getAllKeys(fileName)){
-			logger.info(name);
+		try {
+			App.main(null);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }
