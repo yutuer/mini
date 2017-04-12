@@ -5,3 +5,4 @@ target/**
 shell/**
 mysql/**
 .classpath
+/target/
