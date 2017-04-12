@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="buildMini" default="compile" >
+	<property name="project.dist" location="dist"/>
+	<property name="project.dist.classes" location="${project.dist}/classes"/>
+	
+	<target name="init">
+		<mkdir dir="${project.dist}"/>
+		<mkdir dir="${project.dist.classes}"/>
+		<echo>init complete</echo>
+	</target>
+	
+	<target name="compile" description="compile srcs" depends="init">
+		<javac srcdir="src/main/java" destdir="${project.dist.classes}" />
+		<echo>compile complete</echo>
+	</target>
+	
+	<target name="clean">
+		<delete dir="${project.dist}" />
+		<echo>clean complete</echo>
+	</target>
+</project> 
+
