@@ -16,7 +16,7 @@ public class A {
 	
 	private static final Logger logger = LoggerFactory.getLogger(A.class);
 		
-//	@Test
+	@Test
 	public void a1(){
 		try {
 			ExcelParse ep = new ExcelParse("excel/yuenan.xlsx");
@@ -26,15 +26,6 @@ public class A {
 			}
 			
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Test
-	public void a2(){
-		try {
-			App.main(null);
-		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

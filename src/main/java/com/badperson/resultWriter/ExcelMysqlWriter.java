@@ -78,7 +78,7 @@ public class ExcelMysqlWriter extends ExcelWriter<String> implements IMysqlWrite
 			StringBuilder sb = new StringBuilder();
 			BufferedReader fr = null;
 			try {
-				InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(MysqlConfig.TEMPLATE_FILENAME);
+				InputStream is = ClassLoader.getSystemResourceAsStream(MysqlConfig.TEMPLATE_FILENAME);
 				fr = new BufferedReader(new InputStreamReader(is, Config.ENCODING_UTF));
 				sb.append(fr.readLine());
 			} catch (Exception e) {

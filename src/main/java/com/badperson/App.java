@@ -2,6 +2,9 @@ package com.badperson;
 
 import java.io.File;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.badperson.config.Config;
 import com.badperson.config.ShellConfig;
 import com.badperson.resultWriter.ExcelGroupJsonWriter;
@@ -20,11 +23,16 @@ import excelParse.IParse;
  *
  */
 public class App {
+	
+	private static final Logger logger = LoggerFactory.getLogger(App.class);
+	
 	public static void main(String[] args) throws Exception {
 		File dir = new File(ShellConfig.OUT_DIR);
 		if(!dir.exists()){
 			dir.mkdirs();
 		}
+		
+		logger.info("parse begin");
 		
 		ExcelMysqlWriter.ExcelMysqlSpecialWriter emw = ExcelMysqlWriter.getExcelMysqlSpecialWriter();
 		emw.writeMysqlFileBegin();
@@ -44,5 +52,7 @@ public class App {
 		emw.writeMysqlFileEnd();
 		
 		ExcelGroupJsonWriter.getGroupModelWriter().writeToFile();
+	
+		logger.info("parse end success");
 	}
 }
