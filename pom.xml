@@ -81,36 +81,56 @@
 					<execution>
 						<id>copy-maven</id>
 						<phase>process-sources</phase>
-                    	<goals>
-                        	<goal>copy-resources</goal>
-                    	</goals>
-                    	<configuration>
-                        	<outputDirectory>${project.build.directory}/${compiler.dst.dir}/conf</outputDirectory>
-	                        <resources>
-	                            <resource>
-	                                <directory>${basedir}/src/main/resources</directory>
-	                                <filtering>false</filtering>
-	                            </resource>
-	                        </resources>
-	                    </configuration>					
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/${compiler.dst.dir}/conf</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/src/main/resources</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
 					</execution>
 					<execution>
 						<id>copy-java</id>
 						<phase>process-sources</phase>
-	                    <goals>
-	                        <goal>copy-resources</goal>
-	                    </goals>
-	                    <configuration>
-	                        <outputDirectory>${project.build.directory}/classes</outputDirectory>
-	                        <resources>
-	                            <resource>
-	                                <directory>${basedir}/src/main/resources</directory>
-	                                <filtering>false</filtering>
-	                            </resource>
-	                        </resources>
-	                    </configuration>					
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/classes</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/src/main/resources</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
 					</execution>
-				</executions>			
+					<execution>
+						<id>copy-shell</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/${compiler.dst.dir}</outputDirectory>
+							<resources>
+								<resource>
+									<filtering>false</filtering>
+									<directory>${basedir}</directory>
+									<includes>
+										<include>start.bat</include>
+										<include>start.sh</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>
@@ -166,18 +186,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-
-		<!-- 复制配置文件 -->
-		<resources>
-			<resource>
-				<targetPath>${project.build.directory}/${compiler.dst.dir}</targetPath>
-				<filtering>false</filtering>
-				<directory>${basedir}</directory>
-				<includes>
-					<include>start.bat</include>
-				</includes>
-			</resource>
-		</resources>
 	</build>
 
 </project>
