@@ -11,7 +11,7 @@ public class PropertiesReader {
 		}
 		Properties prop = new Properties();
 		try {
-			prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName));
+			prop.load(LoadResource.getResourceAsStream(fileName));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} 

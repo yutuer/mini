@@ -18,6 +18,7 @@ import com.badperson.config.Config;
 import com.badperson.config.MysqlConfig;
 import com.badperson.interfaces.IMysqlWriter;
 import com.badperson.interfaces.IParseModel;
+import com.badperson.util.LoadResource;
 import com.badperson.vo.ExcelMysqlParseModel;
 import com.badperson.writerParse.ServerExcelWriter;
 import com.google.common.collect.Table;
@@ -83,9 +84,7 @@ public class ExcelMysqlWriter extends ExcelWriter<String> implements IMysqlWrite
 			StringBuilder sb = new StringBuilder();
 			BufferedReader fr = null;
 			try {
-				ClassLoader cl = Thread.currentThread().getClass().getClassLoader();
-				logger.debug("Thread.currentThread().getClass().getClassLoader():" + cl.toString());
-				InputStream is = cl.getResourceAsStream(MysqlConfig.TEMPLATE_FILENAME);
+				InputStream is = LoadResource.getResourceAsStream(MysqlConfig.TEMPLATE_FILENAME);
 				fr = new BufferedReader(new InputStreamReader(is, Config.ENCODING_UTF));
 				sb.append(fr.readLine());
 			} catch (Exception e) {
@@ -107,8 +106,11 @@ public class ExcelMysqlWriter extends ExcelWriter<String> implements IMysqlWrite
 			File file = new File(outFilePath);
 			if (file.exists()) {
 				file.delete();
+			}else{
+				file.getParentFile().mkdirs();
 			}
 			file.createNewFile();
+			
 
 			Writer fileWriter = new OutputStreamWriter(new FileOutputStream(outFilePath, true), Charset.forName(Config.ENCODING_UTF));
 			try {

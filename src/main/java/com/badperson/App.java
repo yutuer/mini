@@ -33,7 +33,6 @@ public class App {
 		}
 		
 		logger.info("parse begin");
-		
 		ExcelMysqlWriter.ExcelMysqlSpecialWriter emw = ExcelMysqlWriter.getExcelMysqlSpecialWriter();
 		emw.writeMysqlFileBegin();
 		for(String excelName: PropertiesReader.getAllKeys(Config.PROP_FILE)){

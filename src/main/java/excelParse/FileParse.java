@@ -3,6 +3,8 @@ package excelParse;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import com.badperson.util.LoadResource;
+
 public abstract class FileParse extends AbstractParse {
 
 	protected final String fileName;
@@ -24,7 +26,7 @@ public abstract class FileParse extends AbstractParse {
 	public InputStream getInputStream() {
 		if(is == null){
 			if(cl == null){
-				is = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
+				is = LoadResource.getResourceAsStream(fileName);
 			}else{
 				is = cl.getResourceAsStream(fileName);
 			}
