@@ -11,6 +11,9 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.badperson.config.Config;
 import com.badperson.config.MysqlConfig;
 import com.badperson.interfaces.IMysqlWriter;
@@ -21,6 +24,8 @@ import com.google.common.collect.Table;
 
 public class ExcelMysqlWriter extends ExcelWriter<String> implements IMysqlWriter {
 
+	private static final Logger logger = LoggerFactory.getLogger(ExcelMysqlWriter.class);
+	
 	private static ExcelMysqlSpecialWriter _SpecialWriter;
 
 	public static ExcelMysqlWriter newExcelMysqlWriter() {
@@ -78,7 +83,9 @@ public class ExcelMysqlWriter extends ExcelWriter<String> implements IMysqlWrite
 			StringBuilder sb = new StringBuilder();
 			BufferedReader fr = null;
 			try {
-				InputStream is = ClassLoader.getSystemResourceAsStream(MysqlConfig.TEMPLATE_FILENAME);
+				ClassLoader cl = Thread.currentThread().getClass().getClassLoader();
+				logger.debug("Thread.currentThread().getClass().getClassLoader():" + cl.toString());
+				InputStream is = cl.getResourceAsStream(MysqlConfig.TEMPLATE_FILENAME);
 				fr = new BufferedReader(new InputStreamReader(is, Config.ENCODING_UTF));
 				sb.append(fr.readLine());
 			} catch (Exception e) {
