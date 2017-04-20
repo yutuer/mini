@@ -79,29 +79,13 @@
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>copy-maven</id>
+						<id>copy-resources-2-distConf</id>
 						<phase>process-sources</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
 							<outputDirectory>${project.build.directory}/${compiler.dst.dir}/conf</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${basedir}/src/main/resources</directory>
-									<filtering>false</filtering>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-					<execution>
-						<id>copy-java</id>
-						<phase>process-sources</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/classes</outputDirectory>
 							<resources>
 								<resource>
 									<directory>${basedir}/src/main/resources</directory>
@@ -137,8 +121,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>1.7</source>
+					<target>1.7</target>
 					<encoding>utf-8</encoding>
 				</configuration>
 			</plugin>
@@ -174,6 +158,9 @@
 						</goals>
 						<phase>package</phase>
 						<configuration>
+							<includes>
+								<include>**/*.class</include>
+							</includes>
 							<archive>
 								<manifest>
 									<addClasspath>true</addClasspath>
