@@ -23,7 +23,6 @@ public class GroupModel {
 		vGroup.getItems().add(Item.newItem("172.16.1.56"));
 		vGroup.getItems().add(Item.newItem("172.16.1.64"));
 		vGroup.getItems().add(Item.newItem("localhost"));
-		
 	}
 
 	private GroupModel() {

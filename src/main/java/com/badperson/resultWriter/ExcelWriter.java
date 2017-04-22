@@ -11,5 +11,5 @@ public abstract class ExcelWriter<V> extends FileWriter {
 
 	public static final Logger logger = LoggerFactory.getLogger(ExcelWriter.class);
 
-	public abstract IParseModel<V> getParseBean(Map<Short, String> map, int index);
+	public abstract IParseModel<V> getParseBean(Map<Short, String> map);
 }

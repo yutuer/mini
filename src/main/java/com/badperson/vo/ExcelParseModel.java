@@ -1,6 +1,6 @@
 package com.badperson.vo;
 
-public class ExcelParseModel {
+public class ExcelParseModel{
 	
 	private String description;
 

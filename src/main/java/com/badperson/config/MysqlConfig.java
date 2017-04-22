@@ -10,5 +10,5 @@ public class MysqlConfig {
 	public static final String SecondLine = "<Connections Ver=\"1.1\">\r\n";
 	public static final String LastLine = "</Connections>";
 
-	public static final String[] FwdFileds = { "\\$\\{name\\}", "\\$\\{port\\}", "\\$\\{userName\\}", "\\$\\{password\\}" };
+	public static final String[] FwdFileds = { "\\$\\{name\\}", "\\$\\{port\\}", "\\$\\{userName\\}", "\\$\\{password\\}" ,"\\$\\{host\\}"};
 }

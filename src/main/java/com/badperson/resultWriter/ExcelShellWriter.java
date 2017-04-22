@@ -43,7 +43,7 @@ public class ExcelShellWriter extends ExcelWriter<String> implements IShellWrite
 			Table<Integer, Short, String> tableData = parse.parse();
 			for (Integer row : tableData.rowKeySet()) {
 				Map<Short, String> map = tableData.row(row);
-				IParseModel<String> xShellRecordVO = getParseBean(map, index);
+				IParseModel<String> xShellRecordVO = getParseBean0(map, index);
 				fileWriter.write(xShellRecordVO.getParseResult());
 				index++;
 			}
@@ -52,11 +52,16 @@ public class ExcelShellWriter extends ExcelWriter<String> implements IShellWrite
 			fileWriter.close();
 		}
 	}
+	
+	private IParseModel<String> getParseBean0(Map<Short, String> map, int index) {
+		ExcelShellParseModel bean = getParseBean(map);
+		bean.setIndex(index);
+		return bean;
+	}
 
 	@Override
-	public IParseModel<String> getParseBean(Map<Short, String> map, int index) {
+	public ExcelShellParseModel getParseBean(Map<Short, String> map) {
 		ExcelShellParseModel bean = new ExcelShellParseModel();
-		bean.setIndex(index);
 		bean.setDescription(map.get((short) 0));
 		bean.setDestHost(map.get((short) 1));
 		bean.setDestHostPort(map.get((short) 2));

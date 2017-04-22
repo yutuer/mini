@@ -61,13 +61,13 @@ public class ExcelGroupJsonWriter extends ExcelWriter<Item> implements IGroupJso
 		Table<Integer, Short, String> tableData = parse.parse();
 		for (Integer row : tableData.rowKeySet()) {
 			Map<Short, String> map = tableData.row(row);
-			IParseModel<Item> parseModel = getParseBean(map, 0);
+			IParseModel<Item> parseModel = getParseBean(map);
 			vGroup.getItems().add(parseModel.getParseResult());
 		}
 	}
 
 	@Override
-	public IParseModel<Item> getParseBean(Map<Short, String> map, int index) {
+	public ExcelGroupJsonParseModel getParseBean(Map<Short, String> map) {
 		ExcelGroupJsonParseModel bean = new ExcelGroupJsonParseModel();
 		bean.setDescription(map.get((short) 0));
 		return bean;

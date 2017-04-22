@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import com.badperson.config.Config;
 import com.badperson.config.MysqlConfig;
 import com.badperson.interfaces.IMysqlWriter;
-import com.badperson.interfaces.IParseModel;
 import com.badperson.util.LoadResource;
 import com.badperson.vo.ExcelMysqlParseModel;
 import com.badperson.writerParse.ServerExcelWriter;
@@ -44,7 +43,7 @@ public class ExcelMysqlWriter extends ExcelWriter<String> implements IMysqlWrite
 			Table<Integer, Short, String> tableData = parse.parse();
 			for (Integer row : tableData.rowKeySet()) {
 				Map<Short, String> map = tableData.row(row);
-				IParseModel<String> parseModel = getParseBean(map, 0);
+				ExcelMysqlParseModel parseModel = getParseBean(map);
 				fileWriter.write(parseModel.getParseResult());
 			}
 		} finally {
@@ -53,7 +52,7 @@ public class ExcelMysqlWriter extends ExcelWriter<String> implements IMysqlWrite
 	}
 
 	@Override
-	public IParseModel<String> getParseBean(Map<Short, String> map, int index) {
+	public ExcelMysqlParseModel getParseBean(Map<Short, String> map) {
 		ExcelMysqlParseModel bean = new ExcelMysqlParseModel();
 		bean.setDescription(map.get((short) 0));
 		bean.setSourcePort(map.get((short) 3));
