@@ -17,6 +17,13 @@
 	</properties>
 
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.ow2.asm/asm-all -->
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-all</artifactId>
+			<version>5.0.4</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
@@ -70,7 +77,6 @@
 			<version>1.2.19</version>
 		</dependency>
 	</dependencies>
-
 
 	<build>
 		<plugins>
