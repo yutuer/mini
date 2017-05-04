@@ -1,12 +1,14 @@
 package asm;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
+import org.objectweb.asm.util.TraceClassVisitor;
 
 
 public class Gen {
@@ -46,6 +48,14 @@ public class Gen {
 				Type type = argumentTypes[i];
 				System.out.println(type);
 			}
+		}
+		{
+			ClassReader classReader = new ClassReader("asm.C");
+			ClassWriter classWriter = new ClassWriter(classReader, 0);
+			AddTimerAdapter addTimerAdapter = new AddTimerAdapter(classWriter);
+			TraceClassVisitor traceClassVisitor = new TraceClassVisitor(addTimerAdapter, new PrintWriter(System.out));
+			classReader.accept(traceClassVisitor, 0);
+			byte[] b2 = classWriter.toByteArray();
 		}
 	}
 }
