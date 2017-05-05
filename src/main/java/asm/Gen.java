@@ -3,10 +3,6 @@ package asm;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-<<<<<<< HEAD
-import java.io.InputStream;
-=======
->>>>>>> ed6656883af28c46c53bb21bb884647a89ec3c63
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.net.URL;
@@ -15,11 +11,7 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
-<<<<<<< HEAD
-import org.objectweb.asm.util.ASMifier;
 import org.objectweb.asm.util.CheckClassAdapter;
-=======
->>>>>>> ed6656883af28c46c53bb21bb884647a89ec3c63
 import org.objectweb.asm.util.TraceClassVisitor;
 
 
