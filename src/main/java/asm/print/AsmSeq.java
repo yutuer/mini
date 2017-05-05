@@ -1,11 +1,9 @@
-package asm;
+package asm.print;
 
 import java.io.IOException;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
-
-import asm.print.PrintClassVisitor;
 
 public class AsmSeq {
 	public static void main(String[] args) throws IOException {

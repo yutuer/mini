@@ -10,180 +10,197 @@ import org.objectweb.asm.TypePath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PrintMethodVisitor extends MethodVisitor{
+public class PrintMethodVisitor extends MethodVisitor {
 
 	private static Logger log = LoggerFactory.getLogger(PrintMethodVisitor.class);
-	
+
+	public static void info(String format, Object... arguments) {
+		log.info("METHOD:    " + format, arguments);
+	}
+
 	public PrintMethodVisitor(MethodVisitor mv) {
 		super(Opcodes.ASM4, mv);
 	}
 
 	@Override
 	public void visitParameter(String paramString, int paramInt) {
-		// TODO Auto-generated method stub
+		info("visitParameter ----- paramString:{},paramInt:{}", paramString, paramInt);
 		super.visitParameter(paramString, paramInt);
 	}
 
 	@Override
 	public AnnotationVisitor visitAnnotationDefault() {
-		// TODO Auto-generated method stub
+		info("visitAnnotationDefault ----- ");
 		return super.visitAnnotationDefault();
 	}
 
 	@Override
 	public AnnotationVisitor visitAnnotation(String paramString, boolean paramBoolean) {
-		// TODO Auto-generated method stub
+		info("visitAnnotationDefault ----- paramString:{},paramBoolean:{}", paramString, paramBoolean);
 		return super.visitAnnotation(paramString, paramBoolean);
 	}
 
 	@Override
 	public AnnotationVisitor visitTypeAnnotation(int paramInt, TypePath paramTypePath, String paramString,
 			boolean paramBoolean) {
-		// TODO Auto-generated method stub
+		info("visitTypeAnnotation ----- paramInt:{},paramTypePath:{},paramString:{},paramBoolean:{}", paramInt,
+				paramTypePath, paramString, paramBoolean);
 		return super.visitTypeAnnotation(paramInt, paramTypePath, paramString, paramBoolean);
 	}
 
 	@Override
 	public AnnotationVisitor visitParameterAnnotation(int paramInt, String paramString, boolean paramBoolean) {
-		// TODO Auto-generated method stub
+		info("visitParameterAnnotation ----- paramInt:{},paramString:{},paramBoolean:{}", paramInt, paramString,
+				paramBoolean);
 		return super.visitParameterAnnotation(paramInt, paramString, paramBoolean);
 	}
 
 	@Override
 	public void visitAttribute(Attribute paramAttribute) {
-		// TODO Auto-generated method stub
+		info("visitAttribute ----- paramAttribute:{}", paramAttribute);
 		super.visitAttribute(paramAttribute);
 	}
 
 	@Override
 	public void visitCode() {
-		// TODO Auto-generated method stub
+		info("visitCode ----- ");
 		super.visitCode();
 	}
 
 	@Override
 	public void visitFrame(int paramInt1, int paramInt2, Object[] paramArrayOfObject1, int paramInt3,
 			Object[] paramArrayOfObject2) {
-		// TODO Auto-generated method stub
+		info("visitFrame ----- paramInt1:{},paramInt2:{},paramArrayOfObject1:{},paramInt3:{},paramArrayOfObject2:{}",
+				paramInt1, paramInt2, paramArrayOfObject1, paramInt3, paramArrayOfObject2);
 		super.visitFrame(paramInt1, paramInt2, paramArrayOfObject1, paramInt3, paramArrayOfObject2);
 	}
 
 	@Override
 	public void visitInsn(int paramInt) {
-		log.info("visitInsn ----- paramInt:{}", paramInt);
+		info("visitInsn ----- paramInt:{}", paramInt);
 		super.visitInsn(paramInt);
 	}
 
 	@Override
 	public void visitIntInsn(int paramInt1, int paramInt2) {
-		// TODO Auto-generated method stub
+		info("visitIntInsn ----- paramInt1:{},paramInt2:{}", paramInt1, paramInt2);
 		super.visitIntInsn(paramInt1, paramInt2);
 	}
 
 	@Override
-	public void visitVarInsn(int paramInt1, int paramInt2) {
-		// TODO Auto-generated method stub
-		super.visitVarInsn(paramInt1, paramInt2);
+	public void visitVarInsn(int opcode, int var) {
+		info("visitVarInsn ----- opcode:{},var:{}", opcode, var);
+		super.visitVarInsn(opcode, var);
 	}
 
 	@Override
 	public void visitTypeInsn(int paramInt, String paramString) {
-		// TODO Auto-generated method stub
+		info("visitTypeInsn ----- paramInt:{},paramString:{}", paramInt, paramString);
 		super.visitTypeInsn(paramInt, paramString);
 	}
 
 	@Override
 	public void visitFieldInsn(int paramInt, String paramString1, String paramString2, String paramString3) {
-		// TODO Auto-generated method stub
+		info("visitFieldInsn ----- paramInt:{},paramString1:{},paramString2:{},paramString3:{}", paramInt,
+				paramString1, paramString2, paramString3);
 		super.visitFieldInsn(paramInt, paramString1, paramString2, paramString3);
 	}
 
 	@Override
 	public void visitMethodInsn(int paramInt, String paramString1, String paramString2, String paramString3) {
-		// TODO Auto-generated method stub
+		info("visitMethodInsn ----- paramInt:{},paramString1:{},paramString2:{},paramString3:{}", paramInt,
+				paramString1, paramString2, paramString3);
 		super.visitMethodInsn(paramInt, paramString1, paramString2, paramString3);
 	}
 
 	@Override
 	public void visitMethodInsn(int paramInt, String paramString1, String paramString2, String paramString3,
 			boolean paramBoolean) {
-		// TODO Auto-generated method stub
+		info("visitMethodInsn ----- paramInt:{},paramString1:{},paramString2:{},paramString3:{}, paramBoolean:{}",
+				paramInt, paramString1, paramString2, paramString3, paramBoolean);
 		super.visitMethodInsn(paramInt, paramString1, paramString2, paramString3, paramBoolean);
 	}
 
 	@Override
 	public void visitInvokeDynamicInsn(String paramString1, String paramString2, Handle paramHandle,
 			Object... paramArrayOfObject) {
-		// TODO Auto-generated method stub
+		info("visitInvokeDynamicInsn ----- paramString1:{},paramString2:{},paramHandle:{},paramArrayOfObject:{}",
+				paramString1, paramString2, paramHandle, paramArrayOfObject);
 		super.visitInvokeDynamicInsn(paramString1, paramString2, paramHandle, paramArrayOfObject);
 	}
 
 	@Override
 	public void visitJumpInsn(int paramInt, Label paramLabel) {
-		// TODO Auto-generated method stub
+		info("visitJumpInsn ----- paramInt:{},paramLabel:{}", paramInt, paramLabel);
 		super.visitJumpInsn(paramInt, paramLabel);
 	}
 
 	@Override
-	public void visitLabel(Label paramLabel) {
-		// TODO Auto-generated method stub
-		super.visitLabel(paramLabel);
+	public void visitLabel(Label label) {
+		info("visitLabel ----- label:{}", label);
+		super.visitLabel(label);
 	}
 
 	@Override
 	public void visitLdcInsn(Object paramObject) {
-		// TODO Auto-generated method stub
+		info("visitLdcInsn ----- paramObject:{}", paramObject);
 		super.visitLdcInsn(paramObject);
 	}
 
 	@Override
 	public void visitIincInsn(int paramInt1, int paramInt2) {
-		// TODO Auto-generated method stub
+		info("visitIincInsn ----- paramInt1:{},paramInt2:{}", paramInt1, paramInt2);
 		super.visitIincInsn(paramInt1, paramInt2);
 	}
 
 	@Override
 	public void visitTableSwitchInsn(int paramInt1, int paramInt2, Label paramLabel, Label... paramArrayOfLabel) {
-		// TODO Auto-generated method stub
+		info("visitTableSwitchInsn ----- paramInt1:{},paramInt2:{},paramLabel:{}, paramArrayOfLabel:{}", paramInt1,
+				paramInt2, paramLabel, paramArrayOfLabel);
 		super.visitTableSwitchInsn(paramInt1, paramInt2, paramLabel, paramArrayOfLabel);
 	}
 
 	@Override
 	public void visitLookupSwitchInsn(Label paramLabel, int[] paramArrayOfInt, Label[] paramArrayOfLabel) {
-		// TODO Auto-generated method stub
+		info("visitLookupSwitchInsn ----- paramLabel:{}, paramArrayOfInt:{}, paramArrayOfLabel:{}", paramLabel,
+				paramArrayOfInt, paramArrayOfLabel);
 		super.visitLookupSwitchInsn(paramLabel, paramArrayOfInt, paramArrayOfLabel);
 	}
 
 	@Override
 	public void visitMultiANewArrayInsn(String paramString, int paramInt) {
-		// TODO Auto-generated method stub
+		info("visitMultiANewArrayInsn ----- paramString:{}, paramInt:{}", paramString, paramInt);
 		super.visitMultiANewArrayInsn(paramString, paramInt);
 	}
 
 	@Override
 	public AnnotationVisitor visitInsnAnnotation(int paramInt, TypePath paramTypePath, String paramString,
 			boolean paramBoolean) {
-		// TODO Auto-generated method stub
+		info("visitInsnAnnotation ----- paramInt:{},paramTypePath:{},paramString:{},paramBoolean:{}", paramInt,
+				paramTypePath, paramString, paramBoolean);
 		return super.visitInsnAnnotation(paramInt, paramTypePath, paramString, paramBoolean);
 	}
 
 	@Override
 	public void visitTryCatchBlock(Label paramLabel1, Label paramLabel2, Label paramLabel3, String paramString) {
-		// TODO Auto-generated method stub
+		info("visitTryCatchBlock ----- paramLabel1:{},paramLabel2:{},paramLabel3:{},paramString:{}", paramLabel1,
+				paramLabel2, paramLabel3, paramString);
 		super.visitTryCatchBlock(paramLabel1, paramLabel2, paramLabel3, paramString);
 	}
 
 	@Override
 	public AnnotationVisitor visitTryCatchAnnotation(int paramInt, TypePath paramTypePath, String paramString,
 			boolean paramBoolean) {
-		// TODO Auto-generated method stub
+		info("visitTryCatchAnnotation ----- paramInt:{},paramTypePath:{},paramString:{},paramBoolean:{}", paramInt,
+				paramTypePath, paramString, paramBoolean);
 		return super.visitTryCatchAnnotation(paramInt, paramTypePath, paramString, paramBoolean);
 	}
 
 	@Override
 	public void visitLocalVariable(String paramString1, String paramString2, String paramString3, Label paramLabel1,
 			Label paramLabel2, int paramInt) {
-		// TODO Auto-generated method stub
+		info("visitLocalVariable ----- paramString1:{},paramString2:{},paramString3:{},paramLabel1:{},paramLabel2:{},paramInt:{}",
+				paramString1, paramString2, paramString3, paramLabel1, paramLabel2, paramInt);
 		super.visitLocalVariable(paramString1, paramString2, paramString3, paramLabel1, paramLabel2, paramInt);
 	}
 
@@ -191,25 +208,28 @@ public class PrintMethodVisitor extends MethodVisitor{
 	public AnnotationVisitor visitLocalVariableAnnotation(int paramInt, TypePath paramTypePath,
 			Label[] paramArrayOfLabel1, Label[] paramArrayOfLabel2, int[] paramArrayOfInt, String paramString,
 			boolean paramBoolean) {
-		// TODO Auto-generated method stub
+		info("visitLocalVariableAnnotation ----- paramInt:{}, paramTypePath:{}, paramArrayOfLabel1:{}, paramArrayOfLabel2:{},paramArrayOfInt:{}, paramString:{}, paramBoolean:{}",
+				paramInt, paramTypePath, paramArrayOfLabel1, paramArrayOfLabel2, paramArrayOfInt, paramString,
+				paramBoolean);
 		return super.visitLocalVariableAnnotation(paramInt, paramTypePath, paramArrayOfLabel1, paramArrayOfLabel2,
 				paramArrayOfInt, paramString, paramBoolean);
 	}
 
 	@Override
-	public void visitLineNumber(int paramInt, Label paramLabel) {
-		// TODO Auto-generated method stub
-		super.visitLineNumber(paramInt, paramLabel);
+	public void visitLineNumber(int line, Label start) {
+		info("visitLineNumber ----- line:{}, start:{}", line, start);
+		super.visitLineNumber(line, start);
 	}
 
 	@Override
 	public void visitMaxs(int paramInt1, int paramInt2) {
-		// TODO Auto-generated method stub
+		info("visitMaxs ----- paramInt1:{}, paramInt2:{}", paramInt1, paramInt2);
 		super.visitMaxs(paramInt1, paramInt2);
 	}
 
 	@Override
 	public void visitEnd() {
+		info("visitEnd ----- ");
 		super.visitEnd();
 	}
 
