@@ -54,6 +54,9 @@ public class ExcelParse extends FileParse {
 			Row row = sheet.getRow(i);
 			for (short j = row.getFirstCellNum(); j < row.getLastCellNum(); j++) {
 				Cell cell = row.getCell(j);
+				if(cell == null){
+					continue;
+				}
 				String value = null;
 				if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
 					value = String.valueOf((int)cell.getNumericCellValue());

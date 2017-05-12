@@ -4,6 +4,8 @@ public class ShellConfig {
 	
 	public static final String OUT_DIR = "shell/";
 	public static final  String OUT_FILE_SUFFIX = "_xshell.fwr";
+	public static final  String OTHER_OUTPUT = "other/";
+	public static final  String GAOYE_NEED_FILE = "gaoye.txt";
 
 	public static final  String SplitChar = "_";
 	public static final  String FirstLine = "[CONNECTION:SSH]\r\n";

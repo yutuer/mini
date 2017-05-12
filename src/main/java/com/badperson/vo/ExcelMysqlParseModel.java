@@ -1,6 +1,7 @@
 package com.badperson.vo;
 
 import com.badperson.config.MysqlConfig;
+import com.badperson.interfaces.IModelWriter;
 import com.badperson.interfaces.IParseModel;
 import com.badperson.resultWriter.ExcelMysqlWriter;
 
@@ -34,6 +35,11 @@ public class ExcelMysqlParseModel extends ExcelParseModel implements IParseModel
 		return str.replaceAll(MysqlConfig.FwdFileds[0], getDescription()).replaceAll(MysqlConfig.FwdFileds[1], sourcePort)
 				.replaceAll(MysqlConfig.FwdFileds[2], userName).replaceAll(MysqlConfig.FwdFileds[3], password)
 				.replaceAll(MysqlConfig.FwdFileds[4], host);
+	}
+
+	@Override
+	public void write(IModelWriter sw) {
+		
 	}
 
 }

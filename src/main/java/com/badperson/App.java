@@ -27,9 +27,17 @@ public class App {
 	private static final Logger logger = LoggerFactory.getLogger(App.class);
 	
 	public static void main(String[] args) throws Exception {
-		File dir = new File(ShellConfig.OUT_DIR);
-		if(!dir.exists()){
-			dir.mkdirs();
+		{
+			File dir = new File(ShellConfig.OUT_DIR);
+			if(!dir.exists()){
+				dir.mkdirs();
+			}
+		}
+		{
+			File dir = new File(ShellConfig.OTHER_OUTPUT);
+			if(!dir.exists()){
+				dir.mkdirs();
+			}
 		}
 		
 		logger.info("parse begin");

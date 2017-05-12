@@ -9,8 +9,10 @@ import java.util.Map;
 
 import com.badperson.config.Config;
 import com.badperson.config.ShellConfig;
+import com.badperson.interfaces.IModelWriter;
 import com.badperson.interfaces.IParseModel;
 import com.badperson.interfaces.IShellWriter;
+import com.badperson.util.GaoyeWriter;
 import com.badperson.vo.ExcelShellParseModel;
 import com.badperson.writerParse.ServerExcelWriter;
 import com.google.common.collect.Table;
@@ -18,6 +20,7 @@ import com.google.common.collect.Table;
 public class ExcelShellWriter extends ExcelWriter<String> implements IShellWriter {
 
 	private final String fileName;
+	private IModelWriter otherWriter;
 
 	public static ExcelShellWriter newExcelShellTunnelWriter(String fileName) {
 		return new ExcelShellWriter(fileName);
@@ -26,6 +29,9 @@ public class ExcelShellWriter extends ExcelWriter<String> implements IShellWrite
 	private ExcelShellWriter(String fileName) {
 		super();
 		this.fileName = fileName;
+		if (fileName.startsWith("and_")) {
+			this.otherWriter = new GaoyeWriter();
+		}
 	}
 
 	public void toShell(ServerExcelWriter parse) throws Exception {
@@ -36,27 +42,28 @@ public class ExcelShellWriter extends ExcelWriter<String> implements IShellWrite
 		}
 		file.createNewFile();
 
-		Writer fileWriter = new OutputStreamWriter(new FileOutputStream(outFilePath, false), Charset.forName(Config.ENCODING));
+		Writer fileWriter = new OutputStreamWriter(new FileOutputStream(outFilePath, false),
+				Charset.forName(Config.ENCODING));
 		try {
 			fileWriter.write(ShellConfig.FirstLine);
 			int index = 0;
 			Table<Integer, Short, String> tableData = parse.parse();
 			for (Integer row : tableData.rowKeySet()) {
 				Map<Short, String> map = tableData.row(row);
-				IParseModel<String> xShellRecordVO = getParseBean0(map, index);
+
+				ExcelShellParseModel bean = getParseBean(map);
+				bean.setIndex(index);
+				IParseModel<String> xShellRecordVO = bean;
 				fileWriter.write(xShellRecordVO.getParseResult());
+				if (otherWriter != null) {
+					bean.write(otherWriter);
+				}
 				index++;
 			}
 			fileWriter.write(ShellConfig.FwdReqCount + "=" + index);
 		} finally {
 			fileWriter.close();
 		}
-	}
-	
-	private IParseModel<String> getParseBean0(Map<Short, String> map, int index) {
-		ExcelShellParseModel bean = getParseBean(map);
-		bean.setIndex(index);
-		return bean;
 	}
 
 	@Override
@@ -66,6 +73,12 @@ public class ExcelShellWriter extends ExcelWriter<String> implements IShellWrite
 		bean.setDestHost(map.get((short) 1));
 		bean.setDestHostPort(map.get((short) 2));
 		bean.setSourcePort(map.get((short) 3));
+		if (map.get((short) 5) != null) {
+			bean.setGaoye(map.get((short) 5));
+		}
+		if (map.get((short) 6) != null) {
+			bean.setBaseServerId(map.get((short) 6));
+		}
 		return bean;
 	}
 
