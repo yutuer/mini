@@ -17,12 +17,12 @@ import com.badperson.config.ShellConfig;
 import com.badperson.interfaces.IModelWriter;
 import com.badperson.vo.ExcelShellParseModel;
 
-public class GaoyeWriter implements IModelWriter{
-	
-	public static boolean hasInit = false;
-	
-	private static final Logger logger = LoggerFactory.getLogger(GaoyeWriter.class);
+public class GaoyeWriter implements IModelWriter {
 
+	public static boolean hasInit = false;
+
+	private static final Logger logger = LoggerFactory.getLogger(GaoyeWriter.class);
+	private static final PropertiesReader PR = new PropertiesReader(ShellConfig.GAOYE_CONF);
 	private final String fileName;
 
 	public GaoyeWriter() {
@@ -63,8 +63,7 @@ public class GaoyeWriter implements IModelWriter{
 				hefuServerId += baseServerId;
 				trueServerId += baseServerId;
 				for (int serverId = hefuServerId; serverId <= trueServerId; serverId++) {
-					sb.append(String.format("portandServerId.put(\"%d\", \"%d-%d\");\n", serverId, sourcePort,
-							hefuServerId));
+					sb.append(String.format(PR.getProperValue("printstr", null), serverId, sourcePort, hefuServerId));
 				}
 			}
 		}
@@ -72,7 +71,7 @@ public class GaoyeWriter implements IModelWriter{
 	}
 
 	private void init() {
-		if(!hasInit){
+		if (!hasInit) {
 			File file = new File(fileName);
 			if (file.exists()) {
 				file.delete();

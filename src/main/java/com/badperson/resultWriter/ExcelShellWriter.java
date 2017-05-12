@@ -13,6 +13,7 @@ import com.badperson.interfaces.IModelWriter;
 import com.badperson.interfaces.IParseModel;
 import com.badperson.interfaces.IShellWriter;
 import com.badperson.util.GaoyeWriter;
+import com.badperson.util.PropertiesReader;
 import com.badperson.vo.ExcelShellParseModel;
 import com.badperson.writerParse.ServerExcelWriter;
 import com.google.common.collect.Table;
@@ -21,6 +22,7 @@ public class ExcelShellWriter extends ExcelWriter<String> implements IShellWrite
 
 	private final String fileName;
 	private IModelWriter otherWriter;
+	private static final PropertiesReader PR = new PropertiesReader(ShellConfig.GAOYE_CONF);
 
 	public static ExcelShellWriter newExcelShellTunnelWriter(String fileName) {
 		return new ExcelShellWriter(fileName);
@@ -29,7 +31,8 @@ public class ExcelShellWriter extends ExcelWriter<String> implements IShellWrite
 	private ExcelShellWriter(String fileName) {
 		super();
 		this.fileName = fileName;
-		if (fileName.startsWith("and_")) {
+		String value = PR.getProperties().getProperty(fileName);
+		if (value != null) {
 			this.otherWriter = new GaoyeWriter();
 		}
 	}
