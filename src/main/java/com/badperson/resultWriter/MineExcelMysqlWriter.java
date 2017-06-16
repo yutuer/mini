@@ -2,11 +2,9 @@ package com.badperson.resultWriter;
 
 import java.util.Map;
 
-import com.badperson.config.MysqlConfig;
-import com.badperson.interfaces.IMysqlWriter;
 import com.badperson.vo.ExcelMysqlParseModel;
 
-public class MineExcelMysqlWriter extends ExcelMysqlWriter implements IMysqlWriter {
+public class MineExcelMysqlWriter extends ExcelMysqlWriter{
 
 	protected MineExcelMysqlWriter() {
 		super();
@@ -17,7 +15,7 @@ public class MineExcelMysqlWriter extends ExcelMysqlWriter implements IMysqlWrit
 	}
 
 	@Override
-	public ExcelMysqlParseModel getParseBean(Map<Short, String> map) {
+	public ExcelMysqlParseModel getMysqlParseBean(Map<Short, String> map) {
 		ExcelMysqlParseModel bean = new ExcelMysqlParseModel();
 		bean.setDescription(map.get((short) 0));
 		bean.setHost(map.get((short) 1));
@@ -25,11 +23,6 @@ public class MineExcelMysqlWriter extends ExcelMysqlWriter implements IMysqlWrit
 		bean.setUserName(map.get((short) 4));
 		bean.setPassword(map.get((short) 5));
 		return bean;
-	}
-
-	@Override
-	public String getOutputFilePath() {
-		return MysqlConfig.OUT_DIR + MysqlConfig.OUT_FILENAME;
 	}
 
 }

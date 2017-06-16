@@ -1,6 +1,6 @@
 package com.badperson.vo;
 
-public class Item {
+public class MysqlItem {
 	
 	private String name;
 	
@@ -8,12 +8,12 @@ public class Item {
 	
 	private final String server_type = "MYSQL";
 
-	private Item() {
+	private MysqlItem() {
 		super();
 	}
 	
-	public static Item newItem(String name){
-		Item item = new Item();
+	public static MysqlItem newItem(String name){
+		MysqlItem item = new MysqlItem();
 		item.name = name;
 		return item;
 	}

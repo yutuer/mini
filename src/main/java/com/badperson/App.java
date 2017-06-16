@@ -6,10 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.badperson.config.Config;
+import com.badperson.config.RedisConfig;
 import com.badperson.config.ShellConfig;
 import com.badperson.resultWriter.ExcelGroupJsonWriter;
 import com.badperson.resultWriter.ExcelMysqlWriter;
-import com.badperson.resultWriter.ExcelShellWriter;
+import com.badperson.resultWriter.ExcelRedisShellWriter;
+import com.badperson.resultWriter.ExcelMysqlShellWriter;
 import com.badperson.resultWriter.MineExcelMysqlWriter;
 import com.badperson.util.PropertiesReader;
 import com.badperson.writerParse.ServerExcelWriter;
@@ -35,6 +37,12 @@ public class App {
 			}
 		}
 		{
+			File dir = new File(RedisConfig.OUT_DIR);
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
+		}
+		{
 			File dir = new File(ShellConfig.OTHER_OUTPUT);
 			if (!dir.exists()) {
 				dir.mkdirs();
@@ -53,9 +61,11 @@ public class App {
 			if ("mine".equals(excelName)) {
 				writer.toMysql(MineExcelMysqlWriter.newExcelMysqlWriter());
 			} else {
-				writer.toShellTunnel(ExcelShellWriter.newExcelShellTunnelWriter(excelName));
+				writer.toShellTunnel(ExcelMysqlShellWriter.newExcelMysqlShellTunnelWriter(excelName));
 				writer.toMysql(ExcelMysqlWriter.newExcelMysqlWriter());
+				writer.toShellTunnel(ExcelRedisShellWriter.newExcelRedisShellWriter(excelName));
 			}
+			writer.toGroupJson(ExcelGroupJsonWriter.newExcelGroupJsonWriter(excelName));
 			writer.toGroupJson(ExcelGroupJsonWriter.newExcelGroupJsonWriter(excelName));
 		}
 		emw.writeMysqlFileEnd();

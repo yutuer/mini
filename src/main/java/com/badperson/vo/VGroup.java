@@ -9,7 +9,7 @@ public class VGroup {
 	private String vgroup_name;
 	private String vgroup_type = "CONNECTION";
 	
-	private List<Item> items;
+	private List<MysqlItem> items;
 	
 	public static VGroup newVGroup(String vgroup_name){
 		VGroup v = new VGroup();
@@ -29,7 +29,7 @@ public class VGroup {
 		return vgroup_type;
 	}
 
-	public List<Item> getItems() {
+	public List<MysqlItem> getItems() {
 		if(items == null){
 			items = Lists.newArrayList();
 		}

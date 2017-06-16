@@ -23,11 +23,11 @@ public class GaoyeWriter implements IModelWriter {
 
 	private static final Logger logger = LoggerFactory.getLogger(GaoyeWriter.class);
 	private static final PropertiesReader PR = new PropertiesReader(ShellConfig.GAOYE_CONF);
-	private final String fileName;
+	private final String outputFileName;
 
 	public GaoyeWriter() {
 		super();
-		this.fileName = ShellConfig.OTHER_OUTPUT + ShellConfig.GAOYE_NEED_FILE;
+		this.outputFileName = ShellConfig.OTHER_OUTPUT + ShellConfig.GAOYE_NEED_FILE;
 		init();
 	}
 
@@ -35,7 +35,7 @@ public class GaoyeWriter implements IModelWriter {
 	public void write(ExcelShellParseModel excelShellParseModel) throws Exception {
 		Writer fileWriter = null;
 		try {
-			fileWriter = new OutputStreamWriter(new FileOutputStream(fileName, true),
+			fileWriter = new OutputStreamWriter(new FileOutputStream(outputFileName, true),
 					Charset.forName(Config.ENCODING_UTF));
 			String str = getContent(excelShellParseModel);
 			if (str != null && str.length() > 0) {
@@ -72,7 +72,7 @@ public class GaoyeWriter implements IModelWriter {
 
 	private void init() {
 		if (!hasInit) {
-			File file = new File(fileName);
+			File file = new File(outputFileName);
 			if (file.exists()) {
 				file.delete();
 			}

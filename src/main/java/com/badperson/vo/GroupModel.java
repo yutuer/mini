@@ -19,10 +19,10 @@ public class GroupModel {
 	private void addDefault() {
 		VGroup vGroup = VGroup.newVGroup("mine");
 		
-		vGroup.getItems().add(Item.newItem("172.16.1.65"));
-		vGroup.getItems().add(Item.newItem("172.16.1.56"));
-		vGroup.getItems().add(Item.newItem("172.16.1.64"));
-		vGroup.getItems().add(Item.newItem("localhost"));
+		vGroup.getItems().add(MysqlItem.newItem("172.16.1.65"));
+		vGroup.getItems().add(MysqlItem.newItem("172.16.1.56"));
+		vGroup.getItems().add(MysqlItem.newItem("172.16.1.64"));
+		vGroup.getItems().add(MysqlItem.newItem("localhost"));
 	}
 
 	private GroupModel() {

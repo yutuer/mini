@@ -10,7 +10,6 @@ import java.util.Map;
 import com.badperson.config.Config;
 import com.badperson.config.ShellConfig;
 import com.badperson.interfaces.IModelWriter;
-import com.badperson.interfaces.IParseModel;
 import com.badperson.interfaces.IShellWriter;
 import com.badperson.util.GaoyeWriter;
 import com.badperson.util.PropertiesReader;
@@ -18,25 +17,26 @@ import com.badperson.vo.ExcelShellParseModel;
 import com.badperson.writerParse.ServerExcelWriter;
 import com.google.common.collect.Table;
 
-public class ExcelShellWriter extends ExcelWriter<String> implements IShellWriter {
+public class ExcelMysqlShellWriter extends ExcelWriter<String> implements IShellWriter {
 
 	private final String fileName;
 	private IModelWriter otherWriter;
-	private static final PropertiesReader PR = new PropertiesReader(ShellConfig.GAOYE_CONF);
+	private static final PropertiesReader GaoyeConfigPR = new PropertiesReader(ShellConfig.GAOYE_CONF);
 
-	public static ExcelShellWriter newExcelShellTunnelWriter(String fileName) {
-		return new ExcelShellWriter(fileName);
+	public static ExcelMysqlShellWriter newExcelMysqlShellTunnelWriter(String fileName) {
+		return new ExcelMysqlShellWriter(fileName);
 	}
 
-	private ExcelShellWriter(String fileName) {
+	private ExcelMysqlShellWriter(String fileName) {
 		super();
 		this.fileName = fileName;
-		String value = PR.getProperties().getProperty(fileName);
+		String value = GaoyeConfigPR.getProperties().getProperty(fileName);
 		if (value != null) {
 			this.otherWriter = new GaoyeWriter();
 		}
 	}
 
+	@Override
 	public void toShell(ServerExcelWriter parse) throws Exception {
 		String outFilePath = getOutputFilePath();
 		File file = new File(outFilePath);
@@ -56,8 +56,7 @@ public class ExcelShellWriter extends ExcelWriter<String> implements IShellWrite
 
 				ExcelShellParseModel bean = getParseBean(map);
 				bean.setIndex(index);
-				IParseModel<String> xShellRecordVO = bean;
-				fileWriter.write(xShellRecordVO.getParseResult());
+				fileWriter.write(bean.getParseResult());
 				if (otherWriter != null) {
 					bean.write(otherWriter);
 				}
@@ -69,7 +68,6 @@ public class ExcelShellWriter extends ExcelWriter<String> implements IShellWrite
 		}
 	}
 
-	@Override
 	public ExcelShellParseModel getParseBean(Map<Short, String> map) {
 		ExcelShellParseModel bean = new ExcelShellParseModel();
 		bean.setDescription(map.get((short) 0));

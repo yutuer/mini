@@ -80,7 +80,6 @@ public class ExcelShellParseModel extends ExcelParseModel implements IParseModel
 		return sb.toString();
 	}
 
-	@Override
 	public void write(IModelWriter sw) throws Exception {
 		sw.write(this);
 	}

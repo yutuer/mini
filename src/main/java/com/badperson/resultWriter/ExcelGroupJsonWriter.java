@@ -14,14 +14,14 @@ import com.badperson.config.Config;
 import com.badperson.config.GroupJsonConfig;
 import com.badperson.interfaces.IGroupJsonWriter;
 import com.badperson.interfaces.IParseModel;
-import com.badperson.vo.ExcelGroupJsonParseModel;
+import com.badperson.vo.ExceMysqlGroupJsonParseModel;
 import com.badperson.vo.GroupModel;
-import com.badperson.vo.Item;
+import com.badperson.vo.MysqlItem;
 import com.badperson.vo.VGroup;
 import com.badperson.writerParse.ServerExcelWriter;
 import com.google.common.collect.Table;
 
-public class ExcelGroupJsonWriter extends ExcelWriter<Item> implements IGroupJsonWriter {
+public class ExcelGroupJsonWriter extends ExcelWriter<MysqlItem> implements IGroupJsonWriter {
 
 	private static GroupModelWriter _groupModelWriter;
 
@@ -61,14 +61,13 @@ public class ExcelGroupJsonWriter extends ExcelWriter<Item> implements IGroupJso
 		Table<Integer, Short, String> tableData = parse.parse();
 		for (Integer row : tableData.rowKeySet()) {
 			Map<Short, String> map = tableData.row(row);
-			IParseModel<Item> parseModel = getParseBean(map);
+			IParseModel<MysqlItem> parseModel = getParseBean(map);
 			vGroup.getItems().add(parseModel.getParseResult());
 		}
 	}
 
-	@Override
-	public ExcelGroupJsonParseModel getParseBean(Map<Short, String> map) {
-		ExcelGroupJsonParseModel bean = new ExcelGroupJsonParseModel();
+	public ExceMysqlGroupJsonParseModel getParseBean(Map<Short, String> map) {
+		ExceMysqlGroupJsonParseModel bean = new ExceMysqlGroupJsonParseModel();
 		bean.setDescription(map.get((short) 0));
 		return bean;
 	}

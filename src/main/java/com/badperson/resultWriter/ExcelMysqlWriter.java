@@ -25,7 +25,7 @@ import com.google.common.collect.Table;
 public class ExcelMysqlWriter extends ExcelWriter<String> implements IMysqlWriter {
 
 	private static final Logger logger = LoggerFactory.getLogger(ExcelMysqlWriter.class);
-	
+
 	private static ExcelMysqlSpecialWriter _SpecialWriter;
 
 	public static ExcelMysqlWriter newExcelMysqlWriter() {
@@ -37,22 +37,23 @@ public class ExcelMysqlWriter extends ExcelWriter<String> implements IMysqlWrite
 	}
 
 	public void toMysql(ServerExcelWriter parse) throws Exception {
-		String outFilePath = getOutputFilePath();
-		Writer fileWriter = new OutputStreamWriter(new FileOutputStream(outFilePath, true), Charset.forName(Config.ENCODING_UTF));
+		String mysqlOutFilePath = getOutputFilePath();
+
+		Writer mysqlFileWriter = new OutputStreamWriter(new FileOutputStream(mysqlOutFilePath, true),
+				Charset.forName(Config.ENCODING_UTF));
 		try {
 			Table<Integer, Short, String> tableData = parse.parse();
 			for (Integer row : tableData.rowKeySet()) {
 				Map<Short, String> map = tableData.row(row);
-				ExcelMysqlParseModel parseModel = getParseBean(map);
-				fileWriter.write(parseModel.getParseResult());
+				ExcelMysqlParseModel parseModel = getMysqlParseBean(map);
+				mysqlFileWriter.write(parseModel.getParseResult());
 			}
 		} finally {
-			fileWriter.close();
+			mysqlFileWriter.close();
 		}
 	}
 
-	@Override
-	public ExcelMysqlParseModel getParseBean(Map<Short, String> map) {
+	public ExcelMysqlParseModel getMysqlParseBean(Map<Short, String> map) {
 		ExcelMysqlParseModel bean = new ExcelMysqlParseModel();
 		bean.setDescription(map.get((short) 0));
 		bean.setSourcePort(map.get((short) 3));
@@ -105,13 +106,13 @@ public class ExcelMysqlWriter extends ExcelWriter<String> implements IMysqlWrite
 			File file = new File(outFilePath);
 			if (file.exists()) {
 				file.delete();
-			}else{
+			} else {
 				file.getParentFile().mkdirs();
 			}
 			file.createNewFile();
-			
 
-			Writer fileWriter = new OutputStreamWriter(new FileOutputStream(outFilePath, true), Charset.forName(Config.ENCODING_UTF));
+			Writer fileWriter = new OutputStreamWriter(new FileOutputStream(outFilePath, true),
+					Charset.forName(Config.ENCODING_UTF));
 			try {
 				fileWriter.write(MysqlConfig.FirstLine);
 				fileWriter.write(MysqlConfig.SecondLine);
@@ -122,7 +123,8 @@ public class ExcelMysqlWriter extends ExcelWriter<String> implements IMysqlWrite
 
 		public void writeMysqlFileEnd() throws Exception {
 			String outFilePath = ExcelMysqlWriter.newExcelMysqlWriter().getOutputFilePath();
-			Writer fileWriter = new OutputStreamWriter(new FileOutputStream(outFilePath, true), Charset.forName(Config.ENCODING_UTF));
+			Writer fileWriter = new OutputStreamWriter(new FileOutputStream(outFilePath, true),
+					Charset.forName(Config.ENCODING_UTF));
 			try {
 				fileWriter.write(MysqlConfig.LastLine);
 			} finally {
