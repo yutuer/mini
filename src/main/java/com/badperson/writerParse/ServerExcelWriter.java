@@ -1,6 +1,6 @@
 package com.badperson.writerParse;
 
-import java.io.InputStream;
+import interfaces.IDataAccess;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,25 +8,18 @@ import org.slf4j.LoggerFactory;
 import com.badperson.interfaces.IGroupJsonWriter;
 import com.badperson.interfaces.IMysqlWriter;
 import com.badperson.interfaces.IShellWriter;
+import com.badperson.resultWriter.other.GaoyeWriter;
 import com.google.common.collect.Table;
 
-import excelParse.IParse;
-
-public class ServerExcelWriter implements IParse {
+public class ServerExcelWriter {
 
 	public static final Logger logger = LoggerFactory.getLogger(ServerExcelWriter.class);
 
-	private final IParse parse;
+	private final IDataAccess dataAccess;
 
-	private Table<Integer, Short, String> tableData;
-
-	public ServerExcelWriter(IParse parse) {
+	public ServerExcelWriter(IDataAccess dataAccess) {
 		super();
-		this.parse = parse;
-	}
-
-	public InputStream getInputStream() {
-		return parse.getInputStream();
+		this.dataAccess = dataAccess;
 	}
 
 	public void toShellTunnel(IShellWriter shellWriter) {
@@ -53,11 +46,16 @@ public class ServerExcelWriter implements IParse {
 		}
 	}
 
-	public Table<Integer, Short, String> parse() {
-		if (tableData == null) {
-			tableData = parse.parse();
+	public Table<Integer, Short, String> getData() {
+		return dataAccess.getData();
+	}
+
+	public void toGaoye(GaoyeWriter gaoyeWriter) {
+		try {
+			gaoyeWriter.toGaoye(this);
+		} catch (Exception e) {
+			logger.error("", e);
 		}
-		return tableData;
 	}
 
 }

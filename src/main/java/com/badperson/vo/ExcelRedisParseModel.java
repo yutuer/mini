@@ -1,7 +1,13 @@
 package com.badperson.vo;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import com.badperson.interfaces.IParseModel;
 
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Component
 public class ExcelRedisParseModel extends ExcelParseModel implements IParseModel<RedisItem> {
 
 	private String auth;

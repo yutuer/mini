@@ -1,23 +1,36 @@
 package com.badperson;
 
+import interfaces.IDataAccess;
+import interfaces.IParse;
+
 import java.io.File;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 import com.badperson.config.Config;
 import com.badperson.config.RedisConfig;
 import com.badperson.config.ShellConfig;
-import com.badperson.resultWriter.ExcelGroupJsonWriter;
-import com.badperson.resultWriter.ExcelMysqlWriter;
-import com.badperson.resultWriter.ExcelRedisShellWriter;
-import com.badperson.resultWriter.ExcelMysqlShellWriter;
-import com.badperson.resultWriter.MineExcelMysqlWriter;
+import com.badperson.container.NavicatContainer;
+import com.badperson.resultWriter.mysql.ExcelMysqlSpecialWriter;
+import com.badperson.resultWriter.mysql.GroupModelWriter;
+import com.badperson.resultWriter.navicat.ExcelNavicatGroupJsonWriter;
+import com.badperson.resultWriter.navicat.MineExcelNavicatTunnelWriter;
+import com.badperson.resultWriter.redis.ExcelRedisShellWriter;
+import com.badperson.resultWriter.xshell.ExcelXShellWriter;
 import com.badperson.util.PropertiesReader;
+import com.badperson.util.SpringUtil;
 import com.badperson.writerParse.ServerExcelWriter;
 
+import excelParse.ExcelDataAccess;
 import excelParse.ExcelParse;
-import excelParse.IParse;
 
 /**
  * 导出xshell、mysql连接配置
@@ -25,9 +38,47 @@ import excelParse.IParse;
  * @author Administrator
  *
  */
-public class App {
+@Component
+public class App implements BeanFactoryAware {
 
 	private static final Logger logger = LoggerFactory.getLogger(App.class);
+
+	@Autowired
+	private NavicatContainer navicatContainer;
+	
+	@Autowired
+	private MineExcelNavicatTunnelWriter mineExcelMysqlWriter;
+
+	@Autowired
+	private GroupModelWriter groupModelWriter;
+
+	private BeanFactory beanFactory;
+
+	public void action() throws Exception {
+		navicatContainer.write();
+		
+		
+		PropertiesReader pr = new PropertiesReader(Config.PROP_FILE);
+		for (String excelName : pr.getAllKeys()) {
+			String trueExcelFileName = Config.EXCEL_DIR + excelName + ".xlsx";
+			IParse parse = new ExcelParse(trueExcelFileName);
+			IDataAccess dataAccess = new ExcelDataAccess(parse);
+			ServerExcelWriter writer = new ServerExcelWriter(dataAccess);
+
+			if ("mine".equals(excelName)) {
+				writer.toMysql(mineExcelMysqlWriter);
+			} else {
+				writer.toShellTunnel(SpringUtil.getBean(beanFactory, ExcelXShellWriter.class, excelName));
+				writer.toMysql(mineExcelMysqlWriter);
+				writer.toShellTunnel(SpringUtil.getBean(beanFactory, ExcelRedisShellWriter.class, excelName));
+			}
+			writer.toGroupJson(ExcelNavicatGroupJsonWriter.newExcelGroupJsonWriter(excelName));
+		}
+	}
+
+	public void tail() throws Exception {
+		groupModelWriter.writeToFile();
+	}
 
 	public static void main(String[] args) throws Exception {
 		{
@@ -49,29 +100,20 @@ public class App {
 			}
 		}
 
+		String[] configs = new String[] { "classpath:anno.xml" };
+		ApplicationContext context = new ClassPathXmlApplicationContext(configs);
+
 		logger.info("parse begin");
-		ExcelMysqlWriter.ExcelMysqlSpecialWriter emw = ExcelMysqlWriter.getExcelMysqlSpecialWriter();
-		emw.writeMysqlFileBegin();
-		PropertiesReader pr = new PropertiesReader(Config.PROP_FILE);
-		for (String excelName : pr.getAllKeys()) {
-			String trueExcelFileName = Config.EXCEL_DIR + excelName + ".xlsx";
-			IParse ep = new ExcelParse(trueExcelFileName);
-			ServerExcelWriter writer = new ServerExcelWriter(ep);
+		App app = context.getBean(App.class);
+		app.action();
 
-			if ("mine".equals(excelName)) {
-				writer.toMysql(MineExcelMysqlWriter.newExcelMysqlWriter());
-			} else {
-				writer.toShellTunnel(ExcelMysqlShellWriter.newExcelMysqlShellTunnelWriter(excelName));
-				writer.toMysql(ExcelMysqlWriter.newExcelMysqlWriter());
-				writer.toShellTunnel(ExcelRedisShellWriter.newExcelRedisShellWriter(excelName));
-			}
-			writer.toGroupJson(ExcelGroupJsonWriter.newExcelGroupJsonWriter(excelName));
-			writer.toGroupJson(ExcelGroupJsonWriter.newExcelGroupJsonWriter(excelName));
-		}
-		emw.writeMysqlFileEnd();
-
-		ExcelGroupJsonWriter.getGroupModelWriter().writeToFile();
+		app.tail();
 
 		logger.info("parse end success");
+	}
+
+	@Override
+	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+		this.beanFactory = beanFactory;
 	}
 }

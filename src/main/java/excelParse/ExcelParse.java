@@ -1,6 +1,5 @@
 package excelParse;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -23,7 +22,7 @@ public class ExcelParse extends FileParse {
 		init();
 	}
 
-	public ExcelParse(String fileName) throws FileNotFoundException {
+	public ExcelParse(String fileName) {
 		this(fileName, null);
 	}
 
@@ -54,16 +53,16 @@ public class ExcelParse extends FileParse {
 			Row row = sheet.getRow(i);
 			for (short j = row.getFirstCellNum(); j < row.getLastCellNum(); j++) {
 				Cell cell = row.getCell(j);
-				if(cell == null){
+				if (cell == null) {
 					continue;
 				}
 				String value = null;
 				if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-					value = String.valueOf((int)cell.getNumericCellValue());
+					value = String.valueOf((int) cell.getNumericCellValue());
 				} else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 					value = cell.getStringCellValue();
 				} else {
-					throw new RuntimeException(String.format("check cell valueType, row:%d, column:%d, cellType:%d", 
+					throw new RuntimeException(String.format("check cell valueType, row:%d, column:%d, cellType:%d",
 							cell.getRow().getRowNum(), cell.getColumnIndex(), cell.getCellType()));
 				}
 				table.put(i, j, value);

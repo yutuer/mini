@@ -1,9 +1,9 @@
 package com.badperson.interfaces;
 
-import com.badperson.vo.ExcelShellParseModel;
+import com.badperson.vo.GaoyeShellParseModel;
 
 public interface IModelWriter {
 
-	public abstract void write(ExcelShellParseModel excelShellParseModel) throws Exception;
+	void write(GaoyeShellParseModel excelShellParseModel) throws Exception;
 
 }

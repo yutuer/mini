@@ -1,4 +1,4 @@
-package com.badperson.resultWriter;
+package com.badperson.resultWriter.redis;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,33 +7,33 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import com.badperson.config.Config;
+import com.badperson.config.RedisConfig;
 import com.badperson.config.ShellConfig;
-import com.badperson.interfaces.IModelWriter;
 import com.badperson.interfaces.IShellWriter;
-import com.badperson.util.GaoyeWriter;
-import com.badperson.util.PropertiesReader;
-import com.badperson.vo.ExcelShellParseModel;
+import com.badperson.resultWriter.ExcelWriter;
+import com.badperson.vo.ExcelRedisParseModel;
+import com.badperson.vo.ExcelXShellParseModel;
 import com.badperson.writerParse.ServerExcelWriter;
 import com.google.common.collect.Table;
 
-public class ExcelMysqlShellWriter extends ExcelWriter<String> implements IShellWriter {
-
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Component
+public class ExcelRedisShellWriter extends ExcelWriter implements IShellWriter{
+	
 	private final String fileName;
-	private IModelWriter otherWriter;
-	private static final PropertiesReader GaoyeConfigPR = new PropertiesReader(ShellConfig.GAOYE_CONF);
-
-	public static ExcelMysqlShellWriter newExcelMysqlShellTunnelWriter(String fileName) {
-		return new ExcelMysqlShellWriter(fileName);
+	
+	public static ExcelRedisShellWriter newExcelRedisShellWriter(String fileName) {
+		return new ExcelRedisShellWriter(fileName);
 	}
-
-	private ExcelMysqlShellWriter(String fileName) {
+	
+	private ExcelRedisShellWriter(String fileName) {
 		super();
 		this.fileName = fileName;
-		String value = GaoyeConfigPR.getProperties().getProperty(fileName);
-		if (value != null) {
-			this.otherWriter = new GaoyeWriter();
-		}
 	}
 
 	@Override
@@ -50,16 +50,13 @@ public class ExcelMysqlShellWriter extends ExcelWriter<String> implements IShell
 		try {
 			fileWriter.write(ShellConfig.FirstLine);
 			int index = 0;
-			Table<Integer, Short, String> tableData = parse.parse();
+			Table<Integer, Short, String> tableData = parse.getData();
 			for (Integer row : tableData.rowKeySet()) {
 				Map<Short, String> map = tableData.row(row);
 
-				ExcelShellParseModel bean = getParseBean(map);
+				ExcelRedisParseModel bean = getParseBean(map);
 				bean.setIndex(index);
 				fileWriter.write(bean.getParseResult());
-				if (otherWriter != null) {
-					bean.write(otherWriter);
-				}
 				index++;
 			}
 			fileWriter.write(ShellConfig.FwdReqCount + "=" + index);
@@ -68,24 +65,20 @@ public class ExcelMysqlShellWriter extends ExcelWriter<String> implements IShell
 		}
 	}
 
-	public ExcelShellParseModel getParseBean(Map<Short, String> map) {
-		ExcelShellParseModel bean = new ExcelShellParseModel();
-		bean.setDescription(map.get((short) 0));
+	public ExcelRedisParseModel getParseBean(Map<Short, String> map) {
+		ExcelRedisParseModel bean = new ExcelRedisParseModel();
+		bean.setDescription(map.get((short) 0) + "_redis");
 		bean.setDestHost(map.get((short) 1));
 		bean.setDestHostPort(map.get((short) 2));
 		bean.setSourcePort(map.get((short) 3));
-		if (map.get((short) 5) != null) {
-			bean.setGaoye(map.get((short) 5));
-		}
-		if (map.get((short) 6) != null) {
-			bean.setBaseServerId(map.get((short) 6));
+		if (map.get((short) 7) != null) {
+			bean.setSourcePort(map.get((short) 7));
 		}
 		return bean;
 	}
 
 	@Override
 	public String getOutputFilePath() {
-		return ShellConfig.OUT_DIR + fileName + ShellConfig.OUT_FILE_SUFFIX;
+		return RedisConfig.OUT_DIR + fileName + RedisConfig.OUT_FILE_SUFFIX;
 	}
-
 }

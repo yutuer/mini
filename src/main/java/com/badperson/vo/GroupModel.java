@@ -2,20 +2,17 @@ package com.badperson.vo;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.google.common.collect.Lists;
 
+@Component
 public class GroupModel {
 
 	private String version = "1.1";
 
 	private List<VGroup> vgroups;
 
-	public static GroupModel newGroupModel(){
-		GroupModel groupModel = new GroupModel();
-		groupModel.addDefault();
-		return groupModel;
-	}
-	
 	private void addDefault() {
 		VGroup vGroup = VGroup.newVGroup("mine");
 		
@@ -25,8 +22,9 @@ public class GroupModel {
 		vGroup.getItems().add(MysqlItem.newItem("localhost"));
 	}
 
-	private GroupModel() {
+	public GroupModel() {
 		super();
+		addDefault();
 	}
 
 	public String getVersion() {

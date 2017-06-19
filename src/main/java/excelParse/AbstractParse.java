@@ -1,5 +1,7 @@
 package excelParse;
 
+import interfaces.IParse;
+
 import org.apache.log4j.Logger;
 
 public abstract class AbstractParse implements IParse {
