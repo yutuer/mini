@@ -1,14 +1,8 @@
 package com.badperson.vo;
 
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import com.badperson.interfaces.ITransfer2Model;
 
-import com.badperson.interfaces.IParseModel;
-
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-@Component
-public class ExcelRedisParseModel extends ExcelParseModel implements IParseModel<RedisItem> {
+public class ExcelRedisTunnelJsonParseModel extends ExcelParseModel implements ITransfer2Model<RedisTunnelJsonItem> {
 
 	private String auth;
 	private String host = "localhost";
@@ -32,8 +26,8 @@ public class ExcelRedisParseModel extends ExcelParseModel implements IParseModel
 	}
 
 	@Override
-	public RedisItem getParseResult() {
-		RedisItem ri = new RedisItem();
+	public RedisTunnelJsonItem getTransferResult() {
+		RedisTunnelJsonItem ri = new RedisTunnelJsonItem();
 		ri.setAuth(auth);
 		ri.setHost(host);
 		ri.setName(name);

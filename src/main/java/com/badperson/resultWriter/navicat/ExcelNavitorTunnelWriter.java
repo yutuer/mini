@@ -39,7 +39,7 @@ public class ExcelNavitorTunnelWriter implements IMysqlWriter {
 			for (Integer row : tableData.rowKeySet()) {
 				Map<Short, String> map = tableData.row(row);
 				ExcelMysqlParseModel_ForNavitorTunnel parseModel = getMysqlParseBean(map);
-				mysqlFileWriter.write(parseModel.getParseResult());
+				mysqlFileWriter.write(parseModel.getTransferResult());
 			}
 		}
 	}

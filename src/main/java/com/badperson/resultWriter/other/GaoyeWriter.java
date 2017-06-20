@@ -39,7 +39,7 @@ public class GaoyeWriter implements IGaoyeWriter {
 				Map<Short, String> map = tableData.row(row);
 
 				GaoyeShellParseModel bean = getGaoyeShellParseModel(map);
-				fileWriter.write(bean.getParseResult());
+				fileWriter.write(bean.getTransferResult());
 			}
 		}
 	}

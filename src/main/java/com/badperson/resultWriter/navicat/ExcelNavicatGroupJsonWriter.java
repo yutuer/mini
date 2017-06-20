@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.badperson.interfaces.IGroupJsonWriter;
-import com.badperson.interfaces.IParseModel;
+import com.badperson.interfaces.ITransfer2Model;
 import com.badperson.vo.ExceMysqlGroupJsonParseModel;
 import com.badperson.vo.GroupModel;
 import com.badperson.vo.MysqlItem;
@@ -40,8 +40,8 @@ public class ExcelNavicatGroupJsonWriter implements IGroupJsonWriter {
 		Table<Integer, Short, String> tableData = parse.getData();
 		for (Integer row : tableData.rowKeySet()) {
 			Map<Short, String> map = tableData.row(row);
-			IParseModel<MysqlItem> parseModel = getParseBean(map);
-			vGroup.getItems().add(parseModel.getParseResult());
+			ITransfer2Model<MysqlItem> parseModel = getParseBean(map);
+			vGroup.getItems().add(parseModel.getTransferResult());
 		}
 	}
 

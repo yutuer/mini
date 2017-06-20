@@ -2,9 +2,9 @@ package com.badperson.vo;
 
 import com.badperson.config.ShellConfig;
 import com.badperson.interfaces.IModelWriter;
-import com.badperson.interfaces.IParseModel;
+import com.badperson.interfaces.ITransfer2Model;
 
-public class ExcelXShellParseModel extends ExcelParseModel implements IParseModel<String> {
+public class ExcelXShellParseModel extends ExcelParseModel implements ITransfer2Model<String> {
 	private int index;
 	private final String incoming = "0";
 
@@ -49,7 +49,7 @@ public class ExcelXShellParseModel extends ExcelParseModel implements IParseMode
 	}
 
 	@Override
-	public String getParseResult() {
+	public String getTransferResult() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(ShellConfig.FwdPrefix).append(index).append(ShellConfig.FwdFileds[0]).append(incoming).append("\r\n");
 		sb.append(ShellConfig.FwdPrefix).append(index).append(ShellConfig.FwdFileds[1]).append(getDescription()).append("\r\n");

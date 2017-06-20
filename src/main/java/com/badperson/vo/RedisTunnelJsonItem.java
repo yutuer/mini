@@ -1,6 +1,6 @@
 package com.badperson.vo;
 
-public class RedisItem {
+public class RedisTunnelJsonItem {
 
 	private String auth;
 	private String host = "localhost";
@@ -51,7 +51,5 @@ public class RedisItem {
 	public int getTimeout_execute() {
 		return timeout_execute;
 	}
-	
-	
 	
 }

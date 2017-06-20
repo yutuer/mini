@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.badperson.config.Config;
 import com.badperson.interfaces.IMultiplyFile;
-import com.badperson.resultWriter.xshell.ExcelXShellWriter;
+import com.badperson.resultWriter.xshell.ExcelMysqlXShellWriter;
 import com.badperson.util.FileUtil;
 import com.badperson.util.PropertiesReader;
 import com.badperson.util.SpringUtil;
@@ -33,7 +33,7 @@ public class ExcelXShellWriterModule implements IMultiplyFile, BeanFactoryAware 
 		for (String excelName : pr.getAllKeys()) {
 			ServerExcelWriter writer = FileUtil.getWriters().get(excelName);
 
-			writer.toShellTunnel(SpringUtil.getBean(beanFactory, ExcelXShellWriter.class, excelName));
+			writer.toShellTunnel(SpringUtil.getBean(beanFactory, ExcelMysqlXShellWriter.class, excelName));
 		}
 	}
 

@@ -1,10 +1,10 @@
 package com.badperson.vo;
 
 import com.badperson.config.MysqlConfig;
-import com.badperson.interfaces.IParseModel;
+import com.badperson.interfaces.ITransfer2Model;
 import com.badperson.module.navicat.NavicatMysqlTunnelWriterModule;
 
-public class ExcelMysqlParseModel_ForNavitorTunnel extends ExcelParseModel implements IParseModel<String> {
+public class ExcelMysqlParseModel_ForNavitorTunnel extends ExcelParseModel implements ITransfer2Model<String> {
 
 	private String host = "localhost";
 	private String sourcePort;
@@ -29,7 +29,7 @@ public class ExcelMysqlParseModel_ForNavitorTunnel extends ExcelParseModel imple
 		this.host = host;
 	}
 
-	public String getParseResult() {
+	public String getTransferResult() {
 		String str = new String(NavicatMysqlTunnelWriterModule.ReplaceString) + "\r\n";
 		return str.replaceAll(MysqlConfig.FwdFileds[0], getDescription())
 				.replaceAll(MysqlConfig.FwdFileds[1], sourcePort).replaceAll(MysqlConfig.FwdFileds[2], userName)

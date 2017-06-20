@@ -4,10 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.badperson.config.OtherConfig;
-import com.badperson.interfaces.IParseModel;
+import com.badperson.interfaces.ITransfer2Model;
 import com.badperson.util.PropertiesReader;
 
-public class GaoyeShellParseModel extends ExcelParseModel implements IParseModel<String> {
+public class GaoyeShellParseModel extends ExcelParseModel implements ITransfer2Model<String> {
 
 	private static final PropertiesReader PR = new PropertiesReader(OtherConfig.GAOYE_CONF);
 
@@ -42,7 +42,7 @@ public class GaoyeShellParseModel extends ExcelParseModel implements IParseModel
 	}
 
 	@Override
-	public String getParseResult() {
+	public String getTransferResult() {
 		StringBuilder sb = new StringBuilder();
 		if (getGaoye().equals("1")) {
 			Pattern compile = Pattern.compile("不良人安卓[混专]服WEB-(\\d{3})\\-?(\\d{3})?服");

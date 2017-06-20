@@ -1,4 +1,4 @@
-package com.badperson.resultWriter.redis;
+package com.badperson.resultWriter.xshell;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,69 +12,60 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.badperson.config.Config;
-import com.badperson.config.RedisConfig;
 import com.badperson.config.ShellConfig;
 import com.badperson.interfaces.IShellWriter;
 import com.badperson.resultWriter.ExcelWriter;
 import com.badperson.util.FileUtil;
-import com.badperson.vo.ExcelRedisParseModel;
 import com.badperson.vo.ExcelXShellParseModel;
 import com.badperson.writerParse.ServerExcelWriter;
 import com.google.common.collect.Table;
 
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Component
-public class ExcelRedisShellWriter extends ExcelWriter implements IShellWriter{
-	
+public class ExcelMysqlXShellWriter extends ExcelWriter implements IShellWriter {
+
 	private final String fileName;
-	
-	public static ExcelRedisShellWriter newExcelRedisShellWriter(String fileName) {
-		return new ExcelRedisShellWriter(fileName);
-	}
-	
-	private ExcelRedisShellWriter(String fileName) {
+
+	public ExcelMysqlXShellWriter(String fileName) {
 		super();
 		this.fileName = fileName;
 	}
 
 	@Override
-	public void toShell(ServerExcelWriter parse) throws Exception {
+	public void toShell(ServerExcelWriter write) throws Exception {
 		String outFilePath = getOutputFilePath();
 		File file = FileUtil.getFile(outFilePath);
 
-		Writer fileWriter = new OutputStreamWriter(new FileOutputStream(file, false),
-				Charset.forName(Config.ENCODING));
-		try {
+		try (Writer fileWriter = new OutputStreamWriter(new FileOutputStream(file, false),
+				Charset.forName(Config.ENCODING))) {
 			fileWriter.write(ShellConfig.FirstLine);
 			int index = 0;
-			Table<Integer, Short, String> tableData = parse.getData();
+			Table<Integer, Short, String> tableData = write.getData();
 			for (Integer row : tableData.rowKeySet()) {
 				Map<Short, String> map = tableData.row(row);
 
-				ExcelRedisParseModel bean = getParseBean(map);
+				ExcelXShellParseModel bean = getExcelShellParseBean(map);
 				bean.setIndex(index);
-				fileWriter.write(bean.getParseResult());
+				fileWriter.write(bean.getTransferResult());
+
 				index++;
 			}
 			fileWriter.write(ShellConfig.FwdReqCount + "=" + index);
-		} finally {
-			fileWriter.close();
 		}
 	}
 
-	public ExcelRedisParseModel getParseBean(Map<Short, String> map) {
-		ExcelRedisParseModel bean = new ExcelRedisParseModel();
-		bean.setDescription(map.get((short) 0) + "_redis");
+	public ExcelXShellParseModel getExcelShellParseBean(Map<Short, String> map) {
+		ExcelXShellParseModel bean = new ExcelXShellParseModel();
+		bean.setDescription(map.get((short) 0));
 		bean.setDestHost(map.get((short) 1));
-		bean.setDestHostPort(map.get((short) 2));                                                                         
+		bean.setDestHostPort(map.get((short) 2));
 		bean.setSourcePort(map.get((short) 3));
-		if (map.get((short) 7) != null) {
-			bean.setSourcePort(map.get((short) 7));
-		}
 		return bean;
 	}
 
 	@Override
 	public String getOutputFilePath() {
-		return RedisConfig.OUT_DIR + fileName + RedisConfig.OUT_FILE_SUFFIX;
+		return ShellConfig.OUT_DIR + fileName + ShellConfig.OUT_FILE_SUFFIX;
 	}
+
 }
