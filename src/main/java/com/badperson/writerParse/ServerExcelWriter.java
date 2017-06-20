@@ -1,10 +1,9 @@
 package com.badperson.writerParse;
 
-import interfaces.IDataAccess;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.badperson.interfaces.IDataAccess;
 import com.badperson.interfaces.IGroupJsonWriter;
 import com.badperson.interfaces.IMysqlWriter;
 import com.badperson.interfaces.IShellWriter;

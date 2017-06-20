@@ -7,9 +7,6 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 
-import interfaces.IDataAccess;
-import interfaces.IParse;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -27,9 +24,6 @@ import com.badperson.util.PropertiesReader;
 import com.badperson.util.SpringUtil;
 import com.badperson.vo.GroupModel;
 import com.badperson.writerParse.ServerExcelWriter;
-
-import excelParse.ExcelDataAccess;
-import excelParse.ExcelParse;
 
 @Component
 public class NavicatMysqlGroupWriterModule extends ExcelWriter implements ISingleFile, BeanFactoryAware {
@@ -81,10 +75,7 @@ public class NavicatMysqlGroupWriterModule extends ExcelWriter implements ISingl
 	public void action() throws Exception {
 		PropertiesReader pr = new PropertiesReader(Config.PROP_FILE);
 		for (String excelName : pr.getAllKeys()) {
-			String trueExcelFileName = Config.EXCEL_DIR + excelName + ".xlsx";
-			IParse parse = new ExcelParse(trueExcelFileName);
-			IDataAccess dataAccess = new ExcelDataAccess(parse);
-			ServerExcelWriter writer = new ServerExcelWriter(dataAccess);
+			ServerExcelWriter writer = FileUtil.getWriters().get(excelName);
 
 			// 分组的单个
 			writer.toGroupJson(SpringUtil.getBean(beanFactory, ExcelNavicatGroupJsonWriter.class, excelName));

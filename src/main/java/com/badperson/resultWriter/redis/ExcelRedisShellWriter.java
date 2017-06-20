@@ -16,12 +16,12 @@ import com.badperson.config.RedisConfig;
 import com.badperson.config.ShellConfig;
 import com.badperson.interfaces.IShellWriter;
 import com.badperson.resultWriter.ExcelWriter;
+import com.badperson.util.FileUtil;
 import com.badperson.vo.ExcelRedisParseModel;
 import com.badperson.vo.ExcelXShellParseModel;
 import com.badperson.writerParse.ServerExcelWriter;
 import com.google.common.collect.Table;
 
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Component
 public class ExcelRedisShellWriter extends ExcelWriter implements IShellWriter{
 	
@@ -39,13 +39,9 @@ public class ExcelRedisShellWriter extends ExcelWriter implements IShellWriter{
 	@Override
 	public void toShell(ServerExcelWriter parse) throws Exception {
 		String outFilePath = getOutputFilePath();
-		File file = new File(outFilePath);
-		if (file.exists()) {
-			file.delete();
-		}
-		file.createNewFile();
+		File file = FileUtil.getFile(outFilePath);
 
-		Writer fileWriter = new OutputStreamWriter(new FileOutputStream(outFilePath, false),
+		Writer fileWriter = new OutputStreamWriter(new FileOutputStream(file, false),
 				Charset.forName(Config.ENCODING));
 		try {
 			fileWriter.write(ShellConfig.FirstLine);
@@ -69,7 +65,7 @@ public class ExcelRedisShellWriter extends ExcelWriter implements IShellWriter{
 		ExcelRedisParseModel bean = new ExcelRedisParseModel();
 		bean.setDescription(map.get((short) 0) + "_redis");
 		bean.setDestHost(map.get((short) 1));
-		bean.setDestHostPort(map.get((short) 2));
+		bean.setDestHostPort(map.get((short) 2));                                                                         
 		bean.setSourcePort(map.get((short) 3));
 		if (map.get((short) 7) != null) {
 			bean.setSourcePort(map.get((short) 7));

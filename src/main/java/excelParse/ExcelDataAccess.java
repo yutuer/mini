@@ -1,9 +1,8 @@
 package excelParse;
 
+import com.badperson.interfaces.IDataAccess;
+import com.badperson.interfaces.IParse;
 import com.google.common.collect.Table;
-
-import interfaces.IDataAccess;
-import interfaces.IParse;
 
 public class ExcelDataAccess implements IDataAccess {
 

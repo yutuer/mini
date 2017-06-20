@@ -1,8 +1,5 @@
 package com.badperson.module.navicat;
 
-import interfaces.IDataAccess;
-import interfaces.IParse;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,12 +23,9 @@ import com.badperson.util.LoadResource;
 import com.badperson.util.PropertiesReader;
 import com.badperson.writerParse.ServerExcelWriter;
 
-import excelParse.ExcelDataAccess;
-import excelParse.ExcelParse;
-
 @Component
 public class NavicatMysqlTunnelWriterModule extends ExcelWriter implements ISingleFile {
-	
+
 	public static final String ReplaceString;
 	static {
 		StringBuilder sb = new StringBuilder();
@@ -44,7 +38,7 @@ public class NavicatMysqlTunnelWriterModule extends ExcelWriter implements ISing
 		}
 		ReplaceString = sb.toString();
 	}
-	
+
 	public void write() throws Exception {
 		head();
 		action();
@@ -91,10 +85,7 @@ public class NavicatMysqlTunnelWriterModule extends ExcelWriter implements ISing
 	public void action() throws Exception {
 		PropertiesReader pr = new PropertiesReader(Config.PROP_FILE);
 		for (String excelName : pr.getAllKeys()) {
-			String trueExcelFileName = Config.EXCEL_DIR + excelName + ".xlsx";
-			IParse parse = new ExcelParse(trueExcelFileName);
-			IDataAccess dataAccess = new ExcelDataAccess(parse);
-			ServerExcelWriter writer = new ServerExcelWriter(dataAccess);
+			ServerExcelWriter writer = FileUtil.getWriters().get(excelName);
 
 			// 隧道连接单个
 			if ("mine".equals(excelName)) {

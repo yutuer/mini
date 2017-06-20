@@ -1,8 +1,5 @@
 package com.badperson.module.other;
 
-import interfaces.IDataAccess;
-import interfaces.IParse;
-
 import java.io.File;
 
 import org.springframework.beans.BeansException;
@@ -19,9 +16,6 @@ import com.badperson.util.FileUtil;
 import com.badperson.util.PropertiesReader;
 import com.badperson.util.SpringUtil;
 import com.badperson.writerParse.ServerExcelWriter;
-
-import excelParse.ExcelDataAccess;
-import excelParse.ExcelParse;
 
 @Component
 public class GaoyeModule extends ExcelWriter implements ISingleFile, BeanFactoryAware {
@@ -47,10 +41,7 @@ public class GaoyeModule extends ExcelWriter implements ISingleFile, BeanFactory
 		for (String excelName : pr.getAllKeys()) {
 			String value = GaoyeConfigPR.getProperties().getProperty(excelName);
 			if (value != null) {
-				String trueExcelFileName = Config.EXCEL_DIR + excelName + ".xlsx";
-				IParse parse = new ExcelParse(trueExcelFileName);
-				IDataAccess dataAccess = new ExcelDataAccess(parse);
-				ServerExcelWriter writer = new ServerExcelWriter(dataAccess);
+				ServerExcelWriter writer = FileUtil.getWriters().get(excelName);
 
 				writer.toGaoye(SpringUtil.getBean(beanFactory, GaoyeWriter.class, excelName));
 			}
