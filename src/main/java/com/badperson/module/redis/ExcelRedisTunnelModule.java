@@ -1,10 +1,13 @@
 package com.badperson.module.redis;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.badperson.config.RedisConfig;
 import com.badperson.resultWriter.ExcelWriter;
 
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Component
 public class ExcelRedisTunnelModule extends ExcelWriter {
 
@@ -13,10 +16,6 @@ public class ExcelRedisTunnelModule extends ExcelWriter {
 	public ExcelRedisTunnelModule(String fileName) {
 		super();
 		this.fileName = fileName;
-	}
-
-	public void write() throws Exception {
-		
 	}
 
 	@Override

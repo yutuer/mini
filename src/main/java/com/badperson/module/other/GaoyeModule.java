@@ -2,9 +2,7 @@ package com.badperson.module.other;
 
 import java.io.File;
 
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.badperson.config.Config;
@@ -15,15 +13,15 @@ import com.badperson.resultWriter.ExcelWriter;
 import com.badperson.resultWriter.other.GaoyeWriter;
 import com.badperson.util.FileUtil;
 import com.badperson.util.PropertiesReader;
-import com.badperson.util.SpringUtil;
 import com.badperson.writerParse.ServerExcelWriter;
 
 @Component
-public class GaoyeModule extends ExcelWriter implements IHead, IAction, BeanFactoryAware {
+public class GaoyeModule extends ExcelWriter implements IHead, IAction {
 
 	private static final PropertiesReader GaoyeConfigPR = new PropertiesReader(OtherConfig.GAOYE_CONF);
 
-	private BeanFactory beanFactory;
+	@Autowired
+	private GaoyeWriter gaoyeWriter;
 
 	@Override
 	public String getOutputFilePath() {
@@ -37,8 +35,7 @@ public class GaoyeModule extends ExcelWriter implements IHead, IAction, BeanFact
 			String value = GaoyeConfigPR.getProperties().getProperty(excelName);
 			if (value != null) {
 				ServerExcelWriter writer = FileUtil.getWriters().get(excelName);
-
-				writer.toGaoye(SpringUtil.getBean(beanFactory, GaoyeWriter.class, excelName));
+				writer.toGaoye(gaoyeWriter);
 			}
 		}
 	}
@@ -47,11 +44,6 @@ public class GaoyeModule extends ExcelWriter implements IHead, IAction, BeanFact
 	public void head() throws Exception {
 		String outFilePath = getOutputFilePath();
 		File file = FileUtil.getFile(outFilePath);
-	}
-
-	@Override
-	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-		this.beanFactory = beanFactory;
 	}
 
 }

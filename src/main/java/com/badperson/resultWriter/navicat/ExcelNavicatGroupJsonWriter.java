@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.badperson.interfaces.IGroupJsonWriter;
@@ -15,6 +17,7 @@ import com.badperson.vo.VGroup;
 import com.badperson.writerParse.ServerExcelWriter;
 import com.google.common.collect.Table;
 
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Component
 public class ExcelNavicatGroupJsonWriter implements IGroupJsonWriter {
 

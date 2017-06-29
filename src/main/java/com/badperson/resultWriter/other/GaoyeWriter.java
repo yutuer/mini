@@ -26,10 +26,6 @@ public class GaoyeWriter implements IGaoyeWriter {
 	@Autowired
 	private GaoyeModule gaoyeModule;
 
-	public GaoyeWriter() {
-		super();
-	}
-
 	@Override
 	public void toGaoye(ServerExcelWriter parse) throws Exception {
 		try (Writer fileWriter = new OutputStreamWriter(new FileOutputStream(gaoyeModule.getOutputFilePath(), true),

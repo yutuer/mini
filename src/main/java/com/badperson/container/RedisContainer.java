@@ -8,19 +8,18 @@ import org.springframework.stereotype.Component;
 import com.badperson.config.RedisConfig;
 import com.badperson.interfaces.IHead;
 import com.badperson.module.redis.ExcelRedisShellModule;
-import com.badperson.module.redis.ExcelRedisTunnelModule;
 
 @Component
 public class RedisContainer extends AbstractToolWrite {
 
-	@Autowired
-	private ExcelRedisTunnelModule excelRedisTunnelModule;
+	// @Autowired
+	// private ExcelRedisTunnelModule excelRedisTunnelModule;
 
 	@Autowired
 	private ExcelRedisShellModule excelRedisShellModule;
 
 	@Override
-	protected void init() {
+	public void afterPropertiesSet() throws Exception {
 		heads.add(new IHead() {
 			@Override
 			public void head() throws Exception {

@@ -7,6 +7,8 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.badperson.config.Config;
@@ -19,6 +21,7 @@ import com.badperson.vo.ExcelXShellParseModel;
 import com.badperson.writerParse.ServerExcelWriter;
 import com.google.common.collect.Table;
 
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Component
 public class ExcelRedisXShellWriter extends ExcelWriter implements IShellWriter {
 

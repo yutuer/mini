@@ -2,24 +2,19 @@ package com.badperson.container;
 
 import java.util.List;
 
+import org.springframework.beans.factory.InitializingBean;
+
 import com.badperson.interfaces.IAction;
 import com.badperson.interfaces.IHead;
 import com.badperson.interfaces.ITail;
 import com.badperson.interfaces.IToolWrite;
 import com.google.common.collect.Lists;
 
-public abstract class AbstractToolWrite implements IToolWrite{
+public abstract class AbstractToolWrite implements IToolWrite, InitializingBean {
 
 	protected List<IHead> heads = Lists.newArrayList();
 	protected List<IAction> actions = Lists.newArrayList();
 	protected List<ITail> tails = Lists.newArrayList();
-	
-	protected abstract void init();
-	
-	public AbstractToolWrite() {
-		super();
-		init();
-	}
 
 	/**
 	 * 包括 数据库隧道端口连接, 以及

@@ -10,21 +10,25 @@ import com.badperson.module.navicat.NavicatMysqlTunnelWriterModule;
 public class NavicatContainer extends AbstractToolWrite {
 
 	@Autowired
-	private NavicatMysqlTunnelWriterModule navicatMysqlTunnelWriter;
+	private NavicatMysqlTunnelWriterModule navicatMysqlTunnelWriterModule;
 
 	@Autowired
-	private NavicatMysqlGroupWriterModule navicatMysqlGroupWriter;
+	private NavicatMysqlGroupWriterModule navicatMysqlGroupWriterModule;
+
+	public NavicatContainer() {
+		super();
+	}
 
 	@Override
-	protected void init() {
-		heads.add(navicatMysqlTunnelWriter);
-		heads.add(navicatMysqlGroupWriter);
+	public void afterPropertiesSet() throws Exception {
+		heads.add(navicatMysqlTunnelWriterModule);
+		heads.add(navicatMysqlGroupWriterModule);
 
-		actions.add(navicatMysqlTunnelWriter);
-		actions.add(navicatMysqlGroupWriter);
+		actions.add(navicatMysqlTunnelWriterModule);
+		actions.add(navicatMysqlGroupWriterModule);
 
-		tails.add(navicatMysqlTunnelWriter);
-		tails.add(navicatMysqlGroupWriter);
+		tails.add(navicatMysqlTunnelWriterModule);
+		tails.add(navicatMysqlGroupWriterModule);
 	}
 
 }

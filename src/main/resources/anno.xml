@@ -20,8 +20,6 @@
 
 	<context:component-scan base-package="com.badperson" />
 	<!-- 
-	<context:component-scan base-package="annotation.dao" />
-	<context:component-scan base-package="annotation.service" />
     -->
     
 </beans>

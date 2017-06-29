@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.badperson.config.Config;
 import com.badperson.interfaces.IMysqlWriter;
-import com.badperson.resultWriter.ExcelWriter;
+import com.badperson.module.navicat.NavicatMysqlTunnelWriterModule;
 import com.badperson.vo.ExcelMysqlParseModel_ForNavitorTunnel;
 import com.badperson.writerParse.ServerExcelWriter;
 import com.google.common.collect.Table;
@@ -24,14 +24,14 @@ public class ExcelNavitorTunnelWriter implements IMysqlWriter {
 	private static final Logger logger = LoggerFactory.getLogger(ExcelNavitorTunnelWriter.class);
 
 	@Autowired
-	private ExcelWriter navicatMysqlTunnelWriter;
+	private NavicatMysqlTunnelWriterModule navicatMysqlTunnelWriterModule;
 
 	public ExcelNavitorTunnelWriter() {
 		super();
 	}
 
 	public void toMysql(ServerExcelWriter parse) throws Exception {
-		String mysqlOutFilePath = navicatMysqlTunnelWriter.getOutputFilePath();
+		String mysqlOutFilePath = navicatMysqlTunnelWriterModule.getOutputFilePath();
 
 		try (Writer mysqlFileWriter = new OutputStreamWriter(new FileOutputStream(mysqlOutFilePath, true),
 				Charset.forName(Config.ENCODING_UTF))) {

@@ -16,7 +16,7 @@ public class XShellContainer extends AbstractToolWrite {
 	private ExcelXShellWriterModule excelXShellWriterModule;
 
 	@Override
-	protected void init() {
+	public void afterPropertiesSet() throws Exception {
 		heads.add(new IHead() {
 			@Override
 			public void head() throws Exception {
