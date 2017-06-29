@@ -1,7 +1,7 @@
 package com.badperson.interfaces;
 
-public interface IMultiplyFile {
+public interface IAction {
 
 	void action() throws Exception;
-
+	
 }

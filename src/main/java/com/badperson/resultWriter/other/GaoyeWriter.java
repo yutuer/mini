@@ -47,7 +47,7 @@ public class GaoyeWriter implements IGaoyeWriter {
 	private GaoyeShellParseModel getGaoyeShellParseModel(Map<Short, String> map) {
 		GaoyeShellParseModel bean = new GaoyeShellParseModel();
 		bean.setDescription(map.get((short) 0));
-		bean.setSourcePort(map.get((short) 3));
+		bean.setSourcePort(map.get((short) 3)); 
 		if (map.get((short) 5) != null) {
 			bean.setGaoye(map.get((short) 5));
 		}

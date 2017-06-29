@@ -14,7 +14,9 @@ import org.springframework.stereotype.Component;
 
 import com.badperson.config.Config;
 import com.badperson.config.MysqlConfig;
-import com.badperson.interfaces.ISingleFile;
+import com.badperson.interfaces.IAction;
+import com.badperson.interfaces.IHead;
+import com.badperson.interfaces.ITail;
 import com.badperson.resultWriter.ExcelWriter;
 import com.badperson.resultWriter.navicat.ExcelNavitorTunnelWriter;
 import com.badperson.resultWriter.navicat.MineExcelNavicatTunnelWriter;
@@ -24,7 +26,13 @@ import com.badperson.util.PropertiesReader;
 import com.badperson.writerParse.ServerExcelWriter;
 
 @Component
-public class NavicatMysqlTunnelWriterModule extends ExcelWriter implements ISingleFile {
+public class NavicatMysqlTunnelWriterModule extends ExcelWriter implements IHead, IAction, ITail {
+
+	@Autowired
+	private ExcelNavitorTunnelWriter excelNavitorTunnelWriter;
+
+	@Autowired
+	private MineExcelNavicatTunnelWriter mineNavicatTunnelWriter;
 
 	public static final String ReplaceString;
 	static {
@@ -44,12 +52,6 @@ public class NavicatMysqlTunnelWriterModule extends ExcelWriter implements ISing
 		action();
 		tail();
 	}
-
-	@Autowired
-	private ExcelNavitorTunnelWriter excelNavitorTunnelWriter;
-
-	@Autowired
-	private MineExcelNavicatTunnelWriter mineNavicatTunnelWriter;
 
 	public void writeMysqlConnectionFileBegin() throws Exception {
 		String outFilePath = getOutputFilePath();

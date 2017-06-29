@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 
 import com.badperson.config.Config;
 import com.badperson.config.OtherConfig;
-import com.badperson.interfaces.ISingleFile;
+import com.badperson.interfaces.IAction;
+import com.badperson.interfaces.IHead;
 import com.badperson.resultWriter.ExcelWriter;
 import com.badperson.resultWriter.other.GaoyeWriter;
 import com.badperson.util.FileUtil;
@@ -18,7 +19,7 @@ import com.badperson.util.SpringUtil;
 import com.badperson.writerParse.ServerExcelWriter;
 
 @Component
-public class GaoyeModule extends ExcelWriter implements ISingleFile, BeanFactoryAware {
+public class GaoyeModule extends ExcelWriter implements IHead, IAction, BeanFactoryAware {
 
 	private static final PropertiesReader GaoyeConfigPR = new PropertiesReader(OtherConfig.GAOYE_CONF);
 
@@ -27,12 +28,6 @@ public class GaoyeModule extends ExcelWriter implements ISingleFile, BeanFactory
 	@Override
 	public String getOutputFilePath() {
 		return OtherConfig.OTHER_OUTPUT + OtherConfig.GAOYE_NEED_FILE;
-	}
-
-	public void write() throws Exception {
-		head();
-		action();
-		tail();
 	}
 
 	@Override
@@ -52,11 +47,6 @@ public class GaoyeModule extends ExcelWriter implements ISingleFile, BeanFactory
 	public void head() throws Exception {
 		String outFilePath = getOutputFilePath();
 		File file = FileUtil.getFile(outFilePath);
-	}
-
-	@Override
-	public void tail() throws Exception {
-
 	}
 
 	@Override

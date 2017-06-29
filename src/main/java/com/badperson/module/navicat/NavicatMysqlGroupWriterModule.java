@@ -16,7 +16,9 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSON;
 import com.badperson.config.Config;
 import com.badperson.config.GroupJsonConfig;
-import com.badperson.interfaces.ISingleFile;
+import com.badperson.interfaces.IAction;
+import com.badperson.interfaces.IHead;
+import com.badperson.interfaces.ITail;
 import com.badperson.resultWriter.ExcelWriter;
 import com.badperson.resultWriter.navicat.ExcelNavicatGroupJsonWriter;
 import com.badperson.util.FileUtil;
@@ -26,7 +28,7 @@ import com.badperson.vo.GroupModel;
 import com.badperson.writerParse.ServerExcelWriter;
 
 @Component
-public class NavicatMysqlGroupWriterModule extends ExcelWriter implements ISingleFile, BeanFactoryAware {
+public class NavicatMysqlGroupWriterModule extends ExcelWriter implements IHead, IAction, ITail, BeanFactoryAware {
 
 	@Autowired
 	private GroupModel groupModel;

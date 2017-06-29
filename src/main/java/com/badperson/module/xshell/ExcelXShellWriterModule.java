@@ -6,7 +6,7 @@ import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.stereotype.Component;
 
 import com.badperson.config.Config;
-import com.badperson.interfaces.IMultiplyFile;
+import com.badperson.interfaces.IAction;
 import com.badperson.resultWriter.xshell.ExcelMysqlXShellWriter;
 import com.badperson.util.FileUtil;
 import com.badperson.util.PropertiesReader;
@@ -14,7 +14,7 @@ import com.badperson.util.SpringUtil;
 import com.badperson.writerParse.ServerExcelWriter;
 
 @Component
-public class ExcelXShellWriterModule implements IMultiplyFile, BeanFactoryAware {
+public class ExcelXShellWriterModule implements IAction, BeanFactoryAware {
 
 	private BeanFactory beanFactory;
 
