@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.badperson.config.OtherConfig;
-import com.badperson.interfaces.ITransfer2Model;
+import com.badperson.moduleWrite.interfaces.ITransfer2Model;
 import com.badperson.util.PropertiesReader;
 
 public class GaoyeShellParseModel extends ExcelParseModel implements ITransfer2Model<String> {

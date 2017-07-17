@@ -1,6 +1,6 @@
 package com.badperson.vo;
 
-import com.badperson.interfaces.ITransfer2Model;
+import com.badperson.moduleWrite.interfaces.ITransfer2Model;
 
 public class ExcelRedisTunnelJsonParseModel extends ExcelParseModel implements ITransfer2Model<RedisTunnelJsonItem> {
 

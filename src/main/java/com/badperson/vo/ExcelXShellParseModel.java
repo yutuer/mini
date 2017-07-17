@@ -1,8 +1,8 @@
 package com.badperson.vo;
 
 import com.badperson.config.ShellConfig;
-import com.badperson.interfaces.IModelWriter;
-import com.badperson.interfaces.ITransfer2Model;
+import com.badperson.moduleWrite.interfaces.IModelWriter;
+import com.badperson.moduleWrite.interfaces.ITransfer2Model;
 
 public class ExcelXShellParseModel extends ExcelParseModel implements ITransfer2Model<String> {
 	private int index;

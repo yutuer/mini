@@ -3,11 +3,11 @@ package com.badperson.writerParse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.badperson.interfaces.IDataAccess;
-import com.badperson.interfaces.IGroupJsonWriter;
-import com.badperson.interfaces.IMysqlWriter;
-import com.badperson.interfaces.IShellWriter;
-import com.badperson.resultWriter.other.GaoyeWriter;
+import com.badperson.moduleWrite.interfaces.IDataAccess;
+import com.badperson.moduleWrite.interfaces.IGroupJsonWriter;
+import com.badperson.moduleWrite.interfaces.IMysqlWriter;
+import com.badperson.moduleWrite.interfaces.IShellWriter;
+import com.badperson.moduleWrite.resultWriter.other.GaoyeWriter;
 import com.google.common.collect.Table;
 
 public class ServerExcelWriter {

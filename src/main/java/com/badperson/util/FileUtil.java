@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.Map;
 
 import com.badperson.config.Config;
-import com.badperson.interfaces.IDataAccess;
-import com.badperson.interfaces.IParse;
+import com.badperson.moduleWrite.interfaces.IDataAccess;
+import com.badperson.moduleWrite.interfaces.IParse;
 import com.badperson.writerParse.ServerExcelWriter;
 import com.google.common.collect.Maps;
 

@@ -1,8 +1,8 @@
 package com.badperson.vo;
 
 import com.badperson.config.MysqlConfig;
-import com.badperson.interfaces.ITransfer2Model;
-import com.badperson.module.navicat.NavicatMysqlTunnelWriterModule;
+import com.badperson.moduleWrite.interfaces.ITransfer2Model;
+import com.badperson.moduleWrite.module.navicat.NavicatMysqlTunnelWriterModule;
 
 public class ExcelMysqlParseModel_ForNavitorTunnel extends ExcelParseModel implements ITransfer2Model<String> {
 

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-import com.badperson.interfaces.IToolWrite;
+import com.badperson.moduleWrite.interfaces.IToolWrite;
 import com.badperson.util.FileUtil;
 
 /**
@@ -26,14 +26,13 @@ public class App {
 	private List<IToolWrite> toolWriteList;
 
 	public void action() throws Exception {
+		FileUtil.init();
 		for (IToolWrite iToolWrite : toolWriteList) {
 			iToolWrite.write();
 		}
 	}
 
 	public static void main(String[] args) throws Exception {
-		FileUtil.init();
-
 		String[] configs = new String[] { "classpath:anno.xml" };
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(configs)) {
 			logger.info("parse begin");

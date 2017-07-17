@@ -2,7 +2,7 @@ package excelParse;
 
 import org.apache.log4j.Logger;
 
-import com.badperson.interfaces.IParse;
+import com.badperson.moduleWrite.interfaces.IParse;
 
 public abstract class AbstractParse implements IParse {
 
