@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 
 import com.badperson.moduleWrite.interfaces.IGroupJsonWriter;
 import com.badperson.moduleWrite.interfaces.ITransfer2Model;
+import com.badperson.moduleWrite.writerParse.ServerExcelWriter;
 import com.badperson.vo.ExceMysqlGroupJsonParseModel;
 import com.badperson.vo.GroupModel;
 import com.badperson.vo.MysqlItem;
 import com.badperson.vo.VGroup;
-import com.badperson.writerParse.ServerExcelWriter;
 import com.google.common.collect.Table;
 
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)

@@ -1,6 +1,6 @@
 package com.badperson.moduleWrite.interfaces;
 
-import com.badperson.writerParse.ServerExcelWriter;
+import com.badperson.moduleWrite.writerParse.ServerExcelWriter;
 
 public interface IGroupJsonWriter {
 

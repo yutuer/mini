@@ -20,10 +20,10 @@ import com.badperson.moduleWrite.interfaces.ITail;
 import com.badperson.moduleWrite.resultWriter.ExcelWriter;
 import com.badperson.moduleWrite.resultWriter.navicat.ExcelNavitorTunnelWriter;
 import com.badperson.moduleWrite.resultWriter.navicat.MineExcelNavicatTunnelWriter;
+import com.badperson.moduleWrite.writerParse.ServerExcelWriter;
 import com.badperson.util.FileUtil;
 import com.badperson.util.LoadResource;
 import com.badperson.util.PropertiesReader;
-import com.badperson.writerParse.ServerExcelWriter;
 
 @Component
 public class NavicatMysqlTunnelWriterModule extends ExcelWriter implements IHead, IAction, ITail {

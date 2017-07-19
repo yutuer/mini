@@ -15,9 +15,9 @@ import com.badperson.config.Config;
 import com.badperson.config.ShellConfig;
 import com.badperson.moduleWrite.interfaces.IShellWriter;
 import com.badperson.moduleWrite.resultWriter.ExcelWriter;
+import com.badperson.moduleWrite.writerParse.ServerExcelWriter;
 import com.badperson.util.FileUtil;
 import com.badperson.vo.ExcelXShellParseModel;
-import com.badperson.writerParse.ServerExcelWriter;
 import com.google.common.collect.Table;
 
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)

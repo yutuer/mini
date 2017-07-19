@@ -21,11 +21,11 @@ import com.badperson.moduleWrite.interfaces.IHead;
 import com.badperson.moduleWrite.interfaces.ITail;
 import com.badperson.moduleWrite.resultWriter.ExcelWriter;
 import com.badperson.moduleWrite.resultWriter.navicat.ExcelNavicatGroupJsonWriter;
+import com.badperson.moduleWrite.writerParse.ServerExcelWriter;
 import com.badperson.util.FileUtil;
 import com.badperson.util.PropertiesReader;
 import com.badperson.util.SpringUtil;
 import com.badperson.vo.GroupModel;
-import com.badperson.writerParse.ServerExcelWriter;
 
 @Component
 public class NavicatMysqlGroupWriterModule extends ExcelWriter implements IHead, IAction, ITail, BeanFactoryAware {

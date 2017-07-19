@@ -11,9 +11,9 @@ import com.badperson.moduleWrite.interfaces.IAction;
 import com.badperson.moduleWrite.interfaces.IHead;
 import com.badperson.moduleWrite.resultWriter.ExcelWriter;
 import com.badperson.moduleWrite.resultWriter.other.GaoyeWriter;
+import com.badperson.moduleWrite.writerParse.ServerExcelWriter;
 import com.badperson.util.FileUtil;
 import com.badperson.util.PropertiesReader;
-import com.badperson.writerParse.ServerExcelWriter;
 
 @Component
 public class GaoyeModule extends ExcelWriter implements IHead, IAction {

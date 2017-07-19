@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 import com.badperson.config.Config;
 import com.badperson.moduleWrite.interfaces.IAction;
 import com.badperson.moduleWrite.resultWriter.xshell.ExcelMysqlXShellWriter;
+import com.badperson.moduleWrite.writerParse.ServerExcelWriter;
 import com.badperson.util.FileUtil;
 import com.badperson.util.PropertiesReader;
 import com.badperson.util.SpringUtil;
-import com.badperson.writerParse.ServerExcelWriter;
 
 @Component
 public class ExcelXShellWriterModule implements IAction, BeanFactoryAware {
