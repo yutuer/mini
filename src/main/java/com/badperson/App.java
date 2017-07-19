@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.badperson.eventDispatch.ExcelParseContext;
 import com.badperson.moduleWrite.interfaces.IToolWrite;
-import com.badperson.util.FileUtil;
 
 /**
  * 导出xshell、mysql连接配置
@@ -23,13 +23,19 @@ public class App {
 	private static final Logger logger = LoggerFactory.getLogger(App.class);
 
 	@Autowired
+	private ExcelParseContext excelParseContext;
+	
+	@Autowired
 	private List<IToolWrite> toolWriteList;
 
 	public void action() throws Exception {
-		FileUtil.init();
-		for (IToolWrite iToolWrite : toolWriteList) {
-			iToolWrite.write();
-		}
+//		FileUtil.init();
+//		for (IToolWrite iToolWrite : toolWriteList) {
+//			iToolWrite.write();
+//		}
+		
+		excelParseContext.parse();
+		
 	}
 
 	public static void main(String[] args) throws Exception {
