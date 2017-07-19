@@ -1,9 +1,9 @@
 package com.badperson.eventDispatch;
 
-import java.util.EventObject;
+import com.badperson.eventDispatch.eventObject.IExcelEventObject;
 
 public interface IDispatcher {
 	
-	void dispatch(EventObject eventObject);
+	void dispatch(IExcelEventObject eventObject);
 	
 }

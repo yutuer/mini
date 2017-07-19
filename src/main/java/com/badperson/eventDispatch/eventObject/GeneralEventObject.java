@@ -2,9 +2,7 @@ package com.badperson.eventDispatch.eventObject;
 
 import java.util.EventObject;
 
-public class GeneralEventObject<T> extends EventObject {
-
-	private static final long serialVersionUID = 1L;
+public class GeneralEventObject<T> extends EventObject implements IExcelEventObject {
 
 	public GeneralEventObject(T source) {
 		super(source);

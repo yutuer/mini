@@ -29,7 +29,7 @@ public class FileUtil {
 	}
 
 	public static void init() {
-		PropertiesReader pr = new PropertiesReader(Config.PROP_FILE);
+		PropertiesReader pr = new PropertiesReader(Config.PORT_FILE);
 		for (String excelName : pr.getAllKeys()) {
 			String trueExcelFileName = Config.EXCEL_DIR + excelName + ".xlsx";
 			IParse parse = new ExcelParse(trueExcelFileName);

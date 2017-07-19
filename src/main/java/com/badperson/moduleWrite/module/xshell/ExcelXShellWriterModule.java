@@ -29,7 +29,7 @@ public class ExcelXShellWriterModule implements IAction, BeanFactoryAware {
 
 	@Override
 	public void action() throws Exception {
-		PropertiesReader pr = new PropertiesReader(Config.PROP_FILE);
+		PropertiesReader pr = new PropertiesReader(Config.PORT_FILE);
 		for (String excelName : pr.getAllKeys()) {
 			ServerExcelWriter writer = FileUtil.getWriters().get(excelName);
 

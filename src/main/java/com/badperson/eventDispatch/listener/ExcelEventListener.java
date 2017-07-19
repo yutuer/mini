@@ -1,9 +1,10 @@
 package com.badperson.eventDispatch.listener;
 
 import java.util.EventListener;
-import java.util.EventObject;
+
+import com.badperson.eventDispatch.eventObject.IExcelEventObject;
 
 public interface ExcelEventListener extends EventListener{
 	
-	public void onEvent(EventObject eventObject);
+	public void onEvent(IExcelEventObject eventObject);
 }

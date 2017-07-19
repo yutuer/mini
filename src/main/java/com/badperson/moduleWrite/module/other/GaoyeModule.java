@@ -30,7 +30,7 @@ public class GaoyeModule extends ExcelWriter implements IHead, IAction {
 
 	@Override
 	public void action() throws Exception {
-		PropertiesReader pr = new PropertiesReader(Config.PROP_FILE);
+		PropertiesReader pr = new PropertiesReader(Config.PORT_FILE);
 		for (String excelName : pr.getAllKeys()) {
 			String value = GaoyeConfigPR.getProperties().getProperty(excelName);
 			if (value != null) {

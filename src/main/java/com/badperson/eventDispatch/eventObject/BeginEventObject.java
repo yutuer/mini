@@ -1,10 +1,8 @@
 package com.badperson.eventDispatch.eventObject;
 
-public class BeginEventObject<T> extends GeneralEventObject<T> {
+public class BeginEventObject extends GeneralEventObject<BeginData> {
 
-	private static final long serialVersionUID = 1L;
-
-	public BeginEventObject(T source) {
+	public BeginEventObject(BeginData source) {
 		super(source);
 	}
 	

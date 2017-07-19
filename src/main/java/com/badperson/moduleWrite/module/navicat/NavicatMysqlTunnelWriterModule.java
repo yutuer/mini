@@ -47,12 +47,6 @@ public class NavicatMysqlTunnelWriterModule extends ExcelWriter implements IHead
 		ReplaceString = sb.toString();
 	}
 
-	public void write() throws Exception {
-		head();
-		action();
-		tail();
-	}
-
 	public void writeMysqlConnectionFileBegin() throws Exception {
 		String outFilePath = getOutputFilePath();
 		File file = FileUtil.getFile(outFilePath);
@@ -85,7 +79,7 @@ public class NavicatMysqlTunnelWriterModule extends ExcelWriter implements IHead
 
 	@Override
 	public void action() throws Exception {
-		PropertiesReader pr = new PropertiesReader(Config.PROP_FILE);
+		PropertiesReader pr = new PropertiesReader(Config.PORT_FILE);
 		for (String excelName : pr.getAllKeys()) {
 			ServerExcelWriter writer = FileUtil.getWriters().get(excelName);
 

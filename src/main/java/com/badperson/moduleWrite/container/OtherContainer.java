@@ -61,7 +61,7 @@ public class OtherContainer extends AbstractToolWrite {
 		tails.add(new ITail() {
 			@Override
 			public void tail() throws Exception {
-				PropertiesReader pr = new PropertiesReader(Config.PROP_FILE);
+				PropertiesReader pr = new PropertiesReader(Config.PORT_FILE);
 				for (String excelName : pr.getAllKeys()) {
 					ServerExcelWriter parse = FileUtil.getWriters().get(excelName);
 					Table<Integer, Short, String> tableData = parse.getData();
