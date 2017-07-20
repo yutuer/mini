@@ -42,6 +42,16 @@ public class FileUtil {
 	public static Map<String, ServerExcelWriter> getWriters() {
 		return writers;
 	}
-	
-	
+
+	public static void deleteFile(File f) {
+		if (f.exists()) {
+			if (f.isDirectory()) {
+				for (File file : f.listFiles()) {
+					deleteFile(file);
+				}
+			} else {
+				f.delete();
+			}
+		}
+	}
 }
