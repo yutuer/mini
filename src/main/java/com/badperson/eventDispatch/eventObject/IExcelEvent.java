@@ -1,6 +1,6 @@
 package com.badperson.eventDispatch.eventObject;
 
-public interface IExcelEventObject {
+public interface IExcelEvent {
 	
 	public static final long serialVersionUID = 1L;
 	

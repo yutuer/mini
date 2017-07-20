@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 
 import com.badperson.config.Config;
 import com.badperson.config.ShellConfig;
-import com.badperson.eventDispatch.eventObject.BeginData;
-import com.badperson.eventDispatch.eventObject.BeginEventObject;
-import com.badperson.eventDispatch.eventObject.EndData;
-import com.badperson.eventDispatch.eventObject.EndEventObject;
-import com.badperson.eventDispatch.eventObject.RowData;
-import com.badperson.eventDispatch.eventObject.RowDataEventObject;
-import com.badperson.eventDispatch.eventObject.StaticBeginEventObject;
+import com.badperson.eventDispatch.eventObject.BeginEventSource;
+import com.badperson.eventDispatch.eventObject.BeginEvent;
+import com.badperson.eventDispatch.eventObject.EndEventSource;
+import com.badperson.eventDispatch.eventObject.EndEvent;
+import com.badperson.eventDispatch.eventObject.RowEventSource;
+import com.badperson.eventDispatch.eventObject.RowDataEvent;
+import com.badperson.eventDispatch.eventObject.StaticBeginEvent;
 import com.badperson.util.FileUtil;
 import com.badperson.vo.ExcelXShellParseModel;
 
@@ -28,8 +28,8 @@ public class ExcelXShellListener extends AbstractExcelEventListener {
 	private Writer fileWriter;
 	private int index = 0;
 
-	public void onEvent(BeginEventObject eventObject) throws Exception {
-		BeginData source = eventObject.getSource();
+	public void onEvent(BeginEvent eventObject) throws Exception {
+		BeginEventSource source = eventObject.getSource();
 		excelName = source.getExcelName();
 		String outFilePath = getOutputFilePath(excelName);
 		File file = FileUtil.getFile(outFilePath);
@@ -38,8 +38,8 @@ public class ExcelXShellListener extends AbstractExcelEventListener {
 		fileWriter.write(ShellConfig.FirstLine);
 	}
 
-	public void onEvent(EndEventObject eventObject) throws Exception {
-		EndData source = eventObject.getSource();
+	public void onEvent(EndEvent eventObject) throws Exception {
+		EndEventSource source = eventObject.getSource();
 		if (excelName == null || !excelName.equals(source.getExcelName())) {
 			throw new Exception("begin excelName:" + excelName + " not equal  end excelName: " + source.getExcelName());
 		}
@@ -51,8 +51,8 @@ public class ExcelXShellListener extends AbstractExcelEventListener {
 		}
 	}
 
-	public void onEvent(RowDataEventObject rowDataEventObject) throws Exception {
-		RowData source = rowDataEventObject.getSource();
+	public void onEvent(RowDataEvent rowDataEventObject) throws Exception {
+		RowEventSource source = rowDataEventObject.getSource();
 
 		ExcelXShellParseModel bean = getExcelShellParseBean(source.getMap());
 		bean.setIndex(index);

@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 
 import com.badperson.config.Config;
 import com.badperson.config.MysqlConfig;
-import com.badperson.eventDispatch.eventObject.RowData;
-import com.badperson.eventDispatch.eventObject.RowDataEventObject;
-import com.badperson.eventDispatch.eventObject.StaticBeginEventObject;
-import com.badperson.eventDispatch.eventObject.StaticEndEventObject;
+import com.badperson.eventDispatch.eventObject.RowEventSource;
+import com.badperson.eventDispatch.eventObject.RowDataEvent;
+import com.badperson.eventDispatch.eventObject.StaticBeginEvent;
+import com.badperson.eventDispatch.eventObject.StaticEndEvent;
 import com.badperson.util.FileUtil;
 import com.badperson.vo.ExcelMysqlParseModel_ForNavitorTunnel;
 
@@ -24,7 +24,7 @@ public class ExcelNavicatMysqlTunnelListener extends AbstractExcelEventListener 
 	private boolean isInit;
 	private Writer fileWriter;
 
-	public void onEvent(StaticBeginEventObject beginEventObject) throws Exception {
+	public void onEvent(StaticBeginEvent beginEventObject) throws Exception {
 		if (!isInit) {
 			String outFilePath = getOutputFilePath();
 			File file = FileUtil.getFile(outFilePath);
@@ -37,7 +37,7 @@ public class ExcelNavicatMysqlTunnelListener extends AbstractExcelEventListener 
 		}
 	}
 
-	public void onEvent(StaticEndEventObject endEventObject) throws Exception {
+	public void onEvent(StaticEndEvent endEventObject) throws Exception {
 		fileWriter.write(MysqlConfig.LastLine);
 		try {
 		} finally {
@@ -45,8 +45,8 @@ public class ExcelNavicatMysqlTunnelListener extends AbstractExcelEventListener 
 		}
 	}
 
-	public void onEvent(RowDataEventObject rowDataEventObject) throws Exception {
-		RowData source = rowDataEventObject.getSource();
+	public void onEvent(RowDataEvent rowDataEventObject) throws Exception {
+		RowEventSource source = rowDataEventObject.getSource();
 
 		ExcelMysqlParseModel_ForNavitorTunnel mysqlParseBean = null;
 		if (!"mine".equals(source.getExcelName())) {

@@ -14,11 +14,11 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSON;
 import com.badperson.config.Config;
 import com.badperson.config.GroupJsonConfig;
-import com.badperson.eventDispatch.eventObject.BeginData;
-import com.badperson.eventDispatch.eventObject.BeginEventObject;
-import com.badperson.eventDispatch.eventObject.RowData;
-import com.badperson.eventDispatch.eventObject.RowDataEventObject;
-import com.badperson.eventDispatch.eventObject.StaticEndEventObject;
+import com.badperson.eventDispatch.eventObject.BeginEventSource;
+import com.badperson.eventDispatch.eventObject.BeginEvent;
+import com.badperson.eventDispatch.eventObject.RowEventSource;
+import com.badperson.eventDispatch.eventObject.RowDataEvent;
+import com.badperson.eventDispatch.eventObject.StaticEndEvent;
 import com.badperson.moduleWrite.interfaces.ITransfer2Model;
 import com.badperson.util.FileUtil;
 import com.badperson.vo.ExceMysqlGroupJsonParseModel;
@@ -33,8 +33,8 @@ public class ExcelNavicatMysqlGroupListener extends AbstractExcelEventListener {
 	private GroupModel groupModel;
 
 	@Override
-	public void onEvent(BeginEventObject eventObject) throws Exception {
-		BeginData source = eventObject.getSource();
+	public void onEvent(BeginEvent eventObject) throws Exception {
+		BeginEventSource source = eventObject.getSource();
 		String excelName = source.getExcelName();
 
 		List<VGroup> groupList = groupModel.getVgroups();
@@ -43,8 +43,8 @@ public class ExcelNavicatMysqlGroupListener extends AbstractExcelEventListener {
 	}
 
 	@Override
-	public void onEvent(RowDataEventObject eventObject) throws Exception {
-		RowData source = eventObject.getSource();
+	public void onEvent(RowDataEvent eventObject) throws Exception {
+		RowEventSource source = eventObject.getSource();
 		String excelName = source.getExcelName();
 		Map<Short, String> map = source.getMap();
 		ITransfer2Model<MysqlItem> parseModel = getParseBean(map);
@@ -54,7 +54,7 @@ public class ExcelNavicatMysqlGroupListener extends AbstractExcelEventListener {
 	}
 
 	@Override
-	public void onEvent(StaticEndEventObject eventObject) throws Exception {
+	public void onEvent(StaticEndEvent eventObject) throws Exception {
 		String outFilePath = getOutputFilePath();
 		File file = FileUtil.getFile(outFilePath);
 

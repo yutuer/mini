@@ -2,21 +2,21 @@ package com.badperson.eventDispatch.listener;
 
 import java.util.EventListener;
 
-import com.badperson.eventDispatch.eventObject.BeginEventObject;
-import com.badperson.eventDispatch.eventObject.EndEventObject;
-import com.badperson.eventDispatch.eventObject.RowDataEventObject;
-import com.badperson.eventDispatch.eventObject.StaticBeginEventObject;
-import com.badperson.eventDispatch.eventObject.StaticEndEventObject;
+import com.badperson.eventDispatch.eventObject.BeginEvent;
+import com.badperson.eventDispatch.eventObject.EndEvent;
+import com.badperson.eventDispatch.eventObject.RowDataEvent;
+import com.badperson.eventDispatch.eventObject.StaticBeginEvent;
+import com.badperson.eventDispatch.eventObject.StaticEndEvent;
 
 public interface ExcelEventListener extends EventListener {
 
-	public void onEvent(StaticBeginEventObject eventObject) throws Exception;
+	public void onEvent(StaticBeginEvent eventObject) throws Exception;
 
-	public void onEvent(BeginEventObject eventObject) throws Exception;
+	public void onEvent(BeginEvent eventObject) throws Exception;
 
-	public void onEvent(EndEventObject eventObject) throws Exception;
+	public void onEvent(EndEvent eventObject) throws Exception;
 
-	public void onEvent(RowDataEventObject eventObject) throws Exception;
+	public void onEvent(RowDataEvent eventObject) throws Exception;
 
-	public void onEvent(StaticEndEventObject eventObject) throws Exception;
+	public void onEvent(StaticEndEvent eventObject) throws Exception;
 }

@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 
 import com.badperson.config.Config;
 import com.badperson.config.OtherConfig;
-import com.badperson.eventDispatch.eventObject.RowData;
-import com.badperson.eventDispatch.eventObject.RowDataEventObject;
-import com.badperson.eventDispatch.eventObject.StaticBeginEventObject;
-import com.badperson.eventDispatch.eventObject.StaticEndEventObject;
+import com.badperson.eventDispatch.eventObject.RowEventSource;
+import com.badperson.eventDispatch.eventObject.RowDataEvent;
+import com.badperson.eventDispatch.eventObject.StaticBeginEvent;
+import com.badperson.eventDispatch.eventObject.StaticEndEvent;
 import com.badperson.util.FileUtil;
 import com.badperson.util.PropertiesReader;
 import com.badperson.vo.GaoyeShellParseModel;
@@ -27,7 +27,7 @@ public class GaoyeListener extends AbstractExcelEventListener {
 	private Writer fileWriter;
 
 	@Override
-	public void onEvent(StaticBeginEventObject eventObject) throws Exception {
+	public void onEvent(StaticBeginEvent eventObject) throws Exception {
 		String outFilePath = getOutputFilePath();
 		File file = FileUtil.getFile(outFilePath);
 
@@ -35,8 +35,8 @@ public class GaoyeListener extends AbstractExcelEventListener {
 	}
 
 	@Override
-	public void onEvent(RowDataEventObject eventObject) throws Exception {
-		RowData source = eventObject.getSource();
+	public void onEvent(RowDataEvent eventObject) throws Exception {
+		RowEventSource source = eventObject.getSource();
 		String excelName = source.getExcelName();
 		String value = GaoyeConfigPR.getProperties().getProperty(excelName);
 		if (value != null) {
@@ -46,7 +46,7 @@ public class GaoyeListener extends AbstractExcelEventListener {
 	}
 
 	@Override
-	public void onEvent(StaticEndEventObject eventObject) throws Exception {
+	public void onEvent(StaticEndEvent eventObject) throws Exception {
 		try {
 		} finally {
 			fileWriter.close();

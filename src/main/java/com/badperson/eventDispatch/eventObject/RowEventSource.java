@@ -4,12 +4,12 @@ import java.util.Map;
 
 import com.google.common.collect.Maps;
 
-public class RowData {
+public class RowEventSource {
 	private final String excelName;
 	private final int row;
 	private final Map<Short, String> map;
 
-	public RowData(String excelName, int row, Map<Short, String> map) {
+	public RowEventSource(String excelName, int row, Map<Short, String> map) {
 		super();
 		this.excelName = excelName;
 		this.row = row;

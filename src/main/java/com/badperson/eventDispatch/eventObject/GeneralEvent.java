@@ -2,9 +2,9 @@ package com.badperson.eventDispatch.eventObject;
 
 import java.util.EventObject;
 
-public class GeneralEventObject<T> extends EventObject implements IExcelEventObject {
+public class GeneralEvent<T> extends EventObject implements IExcelEvent {
 
-	public GeneralEventObject(T source) {
+	public GeneralEvent(T source) {
 		super(source);
 	}
 

@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.badperson.config.Config;
-import com.badperson.eventDispatch.eventObject.BeginData;
-import com.badperson.eventDispatch.eventObject.BeginEventObject;
-import com.badperson.eventDispatch.eventObject.EndData;
-import com.badperson.eventDispatch.eventObject.EndEventObject;
-import com.badperson.eventDispatch.eventObject.RowData;
-import com.badperson.eventDispatch.eventObject.RowDataEventObject;
-import com.badperson.eventDispatch.eventObject.StaticBeginEventObject;
-import com.badperson.eventDispatch.eventObject.StaticEndEventObject;
+import com.badperson.eventDispatch.eventObject.BeginEventSource;
+import com.badperson.eventDispatch.eventObject.BeginEvent;
+import com.badperson.eventDispatch.eventObject.EndEventSource;
+import com.badperson.eventDispatch.eventObject.EndEvent;
+import com.badperson.eventDispatch.eventObject.RowEventSource;
+import com.badperson.eventDispatch.eventObject.RowDataEvent;
+import com.badperson.eventDispatch.eventObject.StaticBeginEvent;
+import com.badperson.eventDispatch.eventObject.StaticEndEvent;
 import com.badperson.eventDispatch.listener.CreateDirListener;
 import com.badperson.eventDispatch.listener.ExcelNavicatMysqlGroupListener;
 import com.badperson.eventDispatch.listener.ExcelNavicatMysqlTunnelListener;
@@ -47,23 +47,23 @@ public class ExcelParseContext implements InitializingBean {
 	private ListenerManager lm;
 
 	public void parse() {
-		lm.dispatch(new StaticBeginEventObject());
+		lm.dispatch(new StaticBeginEvent());
 
 		PropertiesReader pr = new PropertiesReader(Config.PORT_FILE);
 		for (String excelName : pr.getAllKeys()) {
-			lm.dispatch(new BeginEventObject(new BeginData(excelName)));
+			lm.dispatch(new BeginEvent(new BeginEventSource(excelName)));
 
 			ServerExcelWriter writer = FileUtil.getWriters().get(excelName);
 			Table<Integer, Short, String> tableData = writer.getData();
 			for (Integer row : tableData.rowKeySet()) {
 				Map<Short, String> map = tableData.row(row);
-				lm.dispatch(new RowDataEventObject(new RowData(excelName, row, map)));
+				lm.dispatch(new RowDataEvent(new RowEventSource(excelName, row, map)));
 			}
 
-			lm.dispatch(new EndEventObject(new EndData(excelName)));
+			lm.dispatch(new EndEvent(new EndEventSource(excelName)));
 		}
 
-		lm.dispatch(new StaticEndEventObject());
+		lm.dispatch(new StaticEndEvent());
 	}
 
 	@Override
@@ -72,32 +72,32 @@ public class ExcelParseContext implements InitializingBean {
 
 		// 注册监听器
 		{
-			lm.registListener(StaticBeginEventObject.class, createDirListener);
-			lm.registListener(StaticBeginEventObject.class, excelNavicatMysqlTunnelListener);
-			lm.registListener(StaticBeginEventObject.class, gaoyeListener);
+			lm.registListener(StaticBeginEvent.class, createDirListener);
+			lm.registListener(StaticBeginEvent.class, excelNavicatMysqlTunnelListener);
+			lm.registListener(StaticBeginEvent.class, gaoyeListener);
 		}
 
 		{
-			lm.registListener(BeginEventObject.class, excelXShellListener);
-			lm.registListener(BeginEventObject.class, excelNavicatMysqlGroupListener);
+			lm.registListener(BeginEvent.class, excelXShellListener);
+			lm.registListener(BeginEvent.class, excelNavicatMysqlGroupListener);
 
 		}
 
 		{
-			lm.registListener(RowDataEventObject.class, excelNavicatMysqlTunnelListener);
-			lm.registListener(RowDataEventObject.class, excelXShellListener);
-			lm.registListener(RowDataEventObject.class, excelNavicatMysqlGroupListener);
-			lm.registListener(RowDataEventObject.class, gaoyeListener);
+			lm.registListener(RowDataEvent.class, excelNavicatMysqlTunnelListener);
+			lm.registListener(RowDataEvent.class, excelXShellListener);
+			lm.registListener(RowDataEvent.class, excelNavicatMysqlGroupListener);
+			lm.registListener(RowDataEvent.class, gaoyeListener);
 		}
 
 		{
-			lm.registListener(EndEventObject.class, excelXShellListener);
+			lm.registListener(EndEvent.class, excelXShellListener);
 
 		}
 		{
-			lm.registListener(StaticEndEventObject.class, excelNavicatMysqlTunnelListener);
-			lm.registListener(StaticEndEventObject.class, excelNavicatMysqlGroupListener);
-			lm.registListener(StaticEndEventObject.class, gaoyeListener);
+			lm.registListener(StaticEndEvent.class, excelNavicatMysqlTunnelListener);
+			lm.registListener(StaticEndEvent.class, excelNavicatMysqlGroupListener);
+			lm.registListener(StaticEndEvent.class, gaoyeListener);
 		}
 	}
 }

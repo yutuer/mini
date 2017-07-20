@@ -1,10 +1,10 @@
 package com.badperson.eventDispatch.eventObject;
 
-public class EndData {
+public class EndEventSource {
 
 	private final String excelName;
 
-	public EndData(String excelName) {
+	public EndEventSource(String excelName) {
 		super();
 		this.excelName = excelName;
 	}
