@@ -3,6 +3,7 @@ package com.badperson.vo;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.google.common.collect.Lists;
 
@@ -15,7 +16,7 @@ public class GroupModel {
 
 	private void addDefault() {
 		VGroup vGroup = VGroup.newVGroup("mine");
-		
+
 		vGroup.getItems().add(MysqlItem.newItem("172.16.1.65"));
 		vGroup.getItems().add(MysqlItem.newItem("172.16.1.56"));
 		vGroup.getItems().add(MysqlItem.newItem("172.16.1.64"));
@@ -36,6 +37,17 @@ public class GroupModel {
 			vgroups = Lists.newArrayList();
 		}
 		return vgroups;
+	}
+
+	public VGroup getVGroupByName(String name) {
+		if (StringUtils.isEmpty(name))
+			return null;
+		for (VGroup vGroup : vgroups) {
+			if (name.equals(vGroup.getVgroup_name())) {
+				return vGroup;
+			}
+		}
+		return null;
 	}
 
 }

@@ -16,8 +16,10 @@ import com.badperson.eventDispatch.eventObject.RowDataEventObject;
 import com.badperson.eventDispatch.eventObject.StaticBeginEventObject;
 import com.badperson.eventDispatch.eventObject.StaticEndEventObject;
 import com.badperson.eventDispatch.listener.CreateDirListener;
+import com.badperson.eventDispatch.listener.ExcelNavicatMysqlGroupListener;
 import com.badperson.eventDispatch.listener.ExcelNavicatMysqlTunnelListener;
 import com.badperson.eventDispatch.listener.ExcelXShellListener;
+import com.badperson.eventDispatch.listener.GaoyeListener;
 import com.badperson.moduleWrite.writerParse.ServerExcelWriter;
 import com.badperson.util.FileUtil;
 import com.badperson.util.PropertiesReader;
@@ -28,10 +30,19 @@ public class ExcelParseContext implements InitializingBean {
 
 	@Autowired
 	private ExcelNavicatMysqlTunnelListener excelNavicatMysqlTunnelListener;
+
 	@Autowired
 	private ExcelXShellListener excelXShellListener;
+
 	@Autowired
 	private CreateDirListener createDirListener;
+
+	@Autowired
+	private ExcelNavicatMysqlGroupListener excelNavicatMysqlGroupListener;
+
+	@Autowired
+	private GaoyeListener gaoyeListener;
+
 	@Autowired
 	private ListenerManager lm;
 
@@ -63,16 +74,20 @@ public class ExcelParseContext implements InitializingBean {
 		{
 			lm.registListener(StaticBeginEventObject.class, createDirListener);
 			lm.registListener(StaticBeginEventObject.class, excelNavicatMysqlTunnelListener);
+			lm.registListener(StaticBeginEventObject.class, gaoyeListener);
 		}
 
 		{
 			lm.registListener(BeginEventObject.class, excelXShellListener);
+			lm.registListener(BeginEventObject.class, excelNavicatMysqlGroupListener);
 
 		}
 
 		{
 			lm.registListener(RowDataEventObject.class, excelNavicatMysqlTunnelListener);
 			lm.registListener(RowDataEventObject.class, excelXShellListener);
+			lm.registListener(RowDataEventObject.class, excelNavicatMysqlGroupListener);
+			lm.registListener(RowDataEventObject.class, gaoyeListener);
 		}
 
 		{
@@ -81,6 +96,8 @@ public class ExcelParseContext implements InitializingBean {
 		}
 		{
 			lm.registListener(StaticEndEventObject.class, excelNavicatMysqlTunnelListener);
+			lm.registListener(StaticEndEventObject.class, excelNavicatMysqlGroupListener);
+			lm.registListener(StaticEndEventObject.class, gaoyeListener);
 		}
 	}
 }

@@ -5,6 +5,7 @@ import java.io.File;
 import org.springframework.stereotype.Component;
 
 import com.badperson.config.MysqlConfig;
+import com.badperson.config.OtherConfig;
 import com.badperson.config.ShellConfig;
 import com.badperson.eventDispatch.eventObject.StaticBeginEventObject;
 
@@ -20,6 +21,11 @@ public class CreateDirListener extends AbstractExcelEventListener {
 		}
 		{
 			File dir = new File(ShellConfig.OUT_DIR);
+			dir.delete();
+			dir.mkdirs();
+		}
+		{
+			File dir = new File(OtherConfig.OTHER_OUTPUT);
 			dir.delete();
 			dir.mkdirs();
 		}
