@@ -1,6 +1,8 @@
 package com.badperson.eventDispatch.eventObject;
 
-public class StaticEndEvent extends GeneralEvent<String> {
+public class StaticEndEvent extends GeneralEvent {
+
+	private static final long serialVersionUID = 1L;
 
 	public StaticEndEvent() {
 		this("StaticEndEventObject");

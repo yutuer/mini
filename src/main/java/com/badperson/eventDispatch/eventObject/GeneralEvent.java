@@ -2,15 +2,22 @@ package com.badperson.eventDispatch.eventObject;
 
 import java.util.EventObject;
 
-public class GeneralEvent<T> extends EventObject implements IExcelEvent {
+public class GeneralEvent extends EventObject implements IExcelEvent{
 
-	public GeneralEvent(T source) {
-		super(source);
+	private static final long serialVersionUID = 1L;
+	
+	public GeneralEvent(String name) {
+		super(name);
 	}
 
 	@Override
-	public T getSource() {
-		return (T) super.getSource();
+	public String getSource() {
+		return (String) super.getSource();
+	}
+
+	@Override
+	public String getName() {
+		return getSource();
 	}
 
 }

@@ -1,58 +1,42 @@
 package com.badperson.eventDispatch;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.badperson.eventDispatch.eventObject.BeginEvent;
-import com.badperson.eventDispatch.eventObject.EndEvent;
 import com.badperson.eventDispatch.eventObject.IExcelEvent;
-import com.badperson.eventDispatch.eventObject.RowDataEvent;
 import com.badperson.eventDispatch.eventObject.StaticBeginEvent;
-import com.badperson.eventDispatch.eventObject.StaticEndEvent;
-import com.badperson.eventDispatch.listener.ExcelEventListener;
-import com.google.common.collect.Lists;
+import com.badperson.eventDispatch.handler.IEventHandler;
+import com.badperson.eventDispatch.handler.StaticBeginEventHandler;
 import com.google.common.collect.Maps;
 
 @Component
 public class ListenerManager implements IDispatcher {
 
-	private Map<Class<? extends IExcelEvent>, List<ExcelEventListener>> listeners = Maps.newHashMap();
+	private Map<Class<? extends IExcelEvent>, IEventHandler<? extends IExcelEvent>> listener = Maps.newHashMap();
 
-	public void registListener(Class<? extends IExcelEvent> c, ExcelEventListener eventListener) {
-		getListenersByClass(c).add(eventListener);
+	public ListenerManager() {
+		super();
+		initEventHandler();
 	}
 
-	public void removeListener(Class<? extends IExcelEvent> c, ExcelEventListener eventListener) {
-		getListenersByClass(c).remove(eventListener);
+	private void initEventHandler() {
+		listener.put(StaticBeginEvent.class, new StaticBeginEventHandler());
 	}
 
-	private List<ExcelEventListener> getListenersByClass(Class<? extends IExcelEvent> c) {
-		if (listeners.get(c) == null) {
-			listeners.put(c, Lists.<ExcelEventListener>newArrayList());
-		}
-		return listeners.get(c);
+	private <T extends IExcelEvent> IEventHandler<T> getEventHandler(Class<T> c) {
+		IEventHandler<? extends IExcelEvent> iEventHandler = listener.get(c);
+		return (IEventHandler<T>) iEventHandler;
 	}
 
 	@Override
 	public void dispatch(IExcelEvent eventObject) {
-		for (ExcelEventListener excelEventListener : getListenersByClass(eventObject.getClass())) {
-			try {
-				if (eventObject.getClass() == StaticBeginEvent.class) {
-					excelEventListener.onEvent(StaticBeginEvent.class.cast(eventObject));
-				} else if (eventObject.getClass() == BeginEvent.class) {
-					excelEventListener.onEvent(BeginEvent.class.cast(eventObject));
-				} else if (eventObject.getClass() == EndEvent.class) {
-					excelEventListener.onEvent(EndEvent.class.cast(eventObject));
-				} else if (eventObject.getClass() == RowDataEvent.class) {
-					excelEventListener.onEvent(RowDataEvent.class.cast(eventObject));
-				} else if (eventObject.getClass() == StaticEndEvent.class) {
-					excelEventListener.onEvent(StaticEndEvent.class.cast(eventObject));
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		IEventHandler<IExcelEvent> eventHandler = (IEventHandler<IExcelEvent>) getEventHandler(eventObject.getClass());
+		
+		try {
+			eventHandler.doHandler(eventObject);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

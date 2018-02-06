@@ -1,9 +1,11 @@
 package com.badperson.eventDispatch.eventObject;
 
-public class EndEvent extends GeneralEvent<EndEventSource> {
+public class EndEvent extends GeneralExcelEvent {
 
-	public EndEvent(EndEventSource source) {
-		super(source);
+	private static final long serialVersionUID = 1L;
+
+	public EndEvent(String name, ExcelEventContext context) {
+		super(name, context);
 	}
 
 }
