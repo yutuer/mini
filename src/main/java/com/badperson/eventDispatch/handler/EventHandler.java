@@ -6,6 +6,7 @@ public abstract class EventHandler<T extends IExcelEvent> implements IEventHandl
 
 	public EventHandler() {
 		super();
+		init();
 	}
 
 	protected abstract void init();

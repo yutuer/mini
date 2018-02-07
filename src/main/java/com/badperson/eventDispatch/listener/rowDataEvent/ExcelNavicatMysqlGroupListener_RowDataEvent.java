@@ -15,7 +15,7 @@ import com.badperson.vo.MysqlItem;
 import com.badperson.vo.VGroup;
 
 @Component
-public class ExcelNavicatMysqlGroupListener extends AbstractExcelEventListener<RowDataEvent>{
+public class ExcelNavicatMysqlGroupListener_RowDataEvent extends AbstractExcelEventListener<RowDataEvent>{
 
 	@Autowired
 	private GroupModel groupModel;
