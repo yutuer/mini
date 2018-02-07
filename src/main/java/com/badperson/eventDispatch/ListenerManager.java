@@ -2,6 +2,7 @@ package com.badperson.eventDispatch;
 
 import java.util.Map;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +21,7 @@ import com.badperson.eventDispatch.handler.StaticEndEventHandler;
 import com.google.common.collect.Maps;
 
 @Component
-public class ListenerManager implements IDispatcher {
+public class ListenerManager implements IDispatcher, InitializingBean {
 
 	@Autowired
 	private StaticBeginEventHandler staticBeginEventHandler;
@@ -35,13 +36,12 @@ public class ListenerManager implements IDispatcher {
 	private EndEventHandler endEventHandler;
 
 	@Autowired
-	private StaticBeginEventHandler staticEndEventHandler;
+	private StaticEndEventHandler staticEndEventHandler;
 
 	private Map<Class<? extends IExcelEvent>, IEventHandler<? extends IExcelEvent>> listener = Maps.newHashMap();
 
 	public ListenerManager() {
 		super();
-		initEventHandler();
 	}
 
 	private void initEventHandler() {
@@ -52,6 +52,7 @@ public class ListenerManager implements IDispatcher {
 		listener.put(StaticEndEvent.class, staticEndEventHandler);
 	}
 
+	@SuppressWarnings("unchecked")
 	private <T extends IExcelEvent> IEventHandler<T> getEventHandler(Class<T> c) {
 		IEventHandler<? extends IExcelEvent> iEventHandler = listener.get(c);
 		return (IEventHandler<T>) iEventHandler;
@@ -59,6 +60,7 @@ public class ListenerManager implements IDispatcher {
 
 	@Override
 	public void dispatch(IExcelEvent eventObject) {
+		@SuppressWarnings("unchecked")
 		IEventHandler<IExcelEvent> eventHandler = (IEventHandler<IExcelEvent>) getEventHandler(eventObject.getClass());
 
 		try {
@@ -66,5 +68,10 @@ public class ListenerManager implements IDispatcher {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		initEventHandler();
 	}
 }

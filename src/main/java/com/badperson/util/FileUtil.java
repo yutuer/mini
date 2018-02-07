@@ -15,7 +15,7 @@ import excelParse.ExcelParse;
 
 public class FileUtil {
 
-	private static final Map<String, ServerExcelWriter> writers = Maps.newHashMap();
+	private static Map<String, ServerExcelWriter> writers;
 
 	public static File getFile(String fileName) throws IOException {
 		File file = new File(fileName);
@@ -40,6 +40,10 @@ public class FileUtil {
 	}
 
 	public static Map<String, ServerExcelWriter> getWriters() {
+		if(writers == null){
+			writers = Maps.newHashMap();
+			init();
+		}
 		return writers;
 	}
 

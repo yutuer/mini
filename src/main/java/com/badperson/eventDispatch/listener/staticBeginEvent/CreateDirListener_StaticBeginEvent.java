@@ -26,7 +26,7 @@ public class CreateDirListener_StaticBeginEvent extends AbstractExcelEventListen
 			File dir = new File(path);
 			FileUtil.deleteFile(dir);
 			dir.mkdirs();
-		}	
+		}
 	}
 
 }
