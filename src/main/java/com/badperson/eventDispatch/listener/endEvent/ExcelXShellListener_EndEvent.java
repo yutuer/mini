@@ -14,11 +14,10 @@ public class ExcelXShellListener_EndEvent extends AbstractExcelEventListener<End
 	public void doHandler(EndEvent event) throws Exception {
 		ExcelEventContext context = event.getContext();
 
-		context.getWriter().write(ShellConfig.FwdReqCount + "=" + context.getIndex());
+		context.getExcelXShellwriter().write(ShellConfig.FwdReqCount + "=" + context.getIndex());
 		try {
 		} finally {
-			context.getWriter().close();
-			context.setWriter(null);
+			context.getExcelXShellwriter().close();
 		}
 	}
 

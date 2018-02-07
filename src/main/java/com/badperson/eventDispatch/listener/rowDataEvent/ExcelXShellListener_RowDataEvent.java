@@ -20,7 +20,7 @@ public class ExcelXShellListener_RowDataEvent extends AbstractExcelEventListener
 
 		ExcelXShellParseModel bean = getExcelShellParseBean(source.getMap());
 		bean.setIndex(context.getIndex());
-		context.getWriter().write(bean.getTransferResult());
+		context.getExcelXShellwriter().write(bean.getTransferResult());
 
 		context.setIndex(context.getIndex() + 1);
 	}

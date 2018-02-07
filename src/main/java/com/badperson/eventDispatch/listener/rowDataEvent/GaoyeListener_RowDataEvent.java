@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.badperson.config.OtherConfig;
+import com.badperson.eventDispatch.StaticEventContext;
 import com.badperson.eventDispatch.eventObject.RowDataEvent;
 import com.badperson.eventDispatch.eventObject.eventSource.RowEventSource;
 import com.badperson.eventDispatch.listener.AbstractExcelEventListener;
@@ -23,7 +24,7 @@ public class GaoyeListener_RowDataEvent extends AbstractExcelEventListener<RowDa
 		String value = GaoyeConfigPR.getProperties().getProperty(excelName);
 		if (value != null) {
 			GaoyeShellParseModel bean = getGaoyeShellParseModel(source.getMap());
-			event.getContext().getWriter().write(bean.getTransferResult());
+			StaticEventContext.GaoyeListener_fileWriter.write(bean.getTransferResult());
 		}		
 	}
 	

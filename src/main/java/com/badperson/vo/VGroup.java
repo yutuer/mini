@@ -6,21 +6,20 @@ import com.google.common.collect.Lists;
 
 public class VGroup {
 	
-	private String vgroup_name;
+	private final String vgroup_name;
 	private String vgroup_type = "CONNECTION";
 	
 	private List<MysqlItem> items;
 	
-	public static VGroup newVGroup(String vgroup_name){
-		VGroup v = new VGroup();
-		v.vgroup_name = vgroup_name;
-		return v;
-	}
-	
-	private VGroup() {
+	public VGroup(String vgroup_name) {
 		super();
+		this.vgroup_name = vgroup_name;
 	}
 
+	public static VGroup newVGroup(String vgroup_name){
+		return new VGroup(vgroup_name);
+	}
+	
 	public String getVgroup_name() {
 		return vgroup_name;
 	}

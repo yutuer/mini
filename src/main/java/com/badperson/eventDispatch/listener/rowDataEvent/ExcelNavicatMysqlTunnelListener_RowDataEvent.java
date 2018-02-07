@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import com.badperson.eventDispatch.StaticEventContext;
 import com.badperson.eventDispatch.eventObject.RowDataEvent;
 import com.badperson.eventDispatch.eventObject.eventSource.RowEventSource;
 import com.badperson.eventDispatch.listener.AbstractExcelEventListener;
@@ -22,7 +23,7 @@ public class ExcelNavicatMysqlTunnelListener_RowDataEvent extends AbstractExcelE
 		} else {
 			mysqlParseBean = getMysqlParseBean_Mine(source.getMap());
 		}
-		event.getContext().getWriter().write(mysqlParseBean.getTransferResult());
+		StaticEventContext.ExcelNavicatMysqlTunnelListener_fileWriter.write(mysqlParseBean.getTransferResult());
 	}
 	
 	private ExcelMysqlParseModel_ForNavitorTunnel getMysqlParseBean(Map<Short, String> map) {

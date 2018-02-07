@@ -22,9 +22,9 @@ public class ExcelXShellListener_BeginEvent extends AbstractExcelEventListener<B
 		String outFilePath = getOutputFilePath(excelName);
 		File file = FileUtil.getFile(outFilePath);
 
-		event.getContext().setWriter(
+		event.getContext().setExcelXShellwriter(
 				new OutputStreamWriter(new FileOutputStream(file, false), Charset.forName(Config.ENCODING)));
-		event.getContext().getWriter().write(ShellConfig.FirstLine);
+		event.getContext().getExcelXShellwriter().write(ShellConfig.FirstLine);
 	}
 
 	private String getOutputFilePath(String fileName) {

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.BeanFactory;
 
 public class SpringUtil {
 
+	@SuppressWarnings("unchecked")
 	public static <T> T getBean(BeanFactory bf, Class<T> c, Object... args) {
 		return (T) bf.getBean(getStringClassName(c.getSimpleName()), args);
 	}

@@ -5,7 +5,7 @@ import java.io.Writer;
 public class ExcelEventContext {
 	
 	private final String excelName;
-	private Writer writer;
+	private Writer excelXShellwriter;
 	private int index;
 
 	public ExcelEventContext(String excelName) {
@@ -16,13 +16,13 @@ public class ExcelEventContext {
 	public String getExcelName() {
 		return excelName;
 	}
-	
-	public Writer getWriter() {
-		return writer;
+
+	public Writer getExcelXShellwriter() {
+		return excelXShellwriter;
 	}
 
-	public void setWriter(Writer writer){
-		this.writer = writer;
+	public void setExcelXShellwriter(Writer excelXShellwriter) {
+		this.excelXShellwriter = excelXShellwriter;
 	}
 
 	public int getIndex() {
