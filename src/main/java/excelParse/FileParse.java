@@ -5,7 +5,7 @@ import java.io.InputStream;
 
 import com.badperson.util.LoadResource;
 
-public abstract class FileParse extends AbstractParse {
+public abstract class FileParse<V> extends AbstractParse<V> {
 
 	protected final String fileName;
 	

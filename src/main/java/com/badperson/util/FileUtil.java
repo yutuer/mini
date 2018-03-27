@@ -9,9 +9,10 @@ import com.badperson.moduleWrite.interfaces.IDataAccess;
 import com.badperson.moduleWrite.interfaces.IParse;
 import com.badperson.moduleWrite.writerParse.ServerExcelWriter;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Table;
 
 import excelParse.ExcelDataAccess;
-import excelParse.ExcelParse;
+import excelParse.StringSinglePageExcelParse;
 
 public class FileUtil {
 
@@ -32,7 +33,7 @@ public class FileUtil {
 		PropertiesReader pr = new PropertiesReader(Config.PORT_FILE);
 		for (String excelName : pr.getAllKeys()) {
 			String trueExcelFileName = Config.EXCEL_DIR + excelName + ".xlsx";
-			IParse parse = new ExcelParse(trueExcelFileName);
+			IParse<Table<Integer, Short, String>> parse = new StringSinglePageExcelParse(trueExcelFileName);
 			IDataAccess dataAccess = new ExcelDataAccess(parse);
 			ServerExcelWriter writer = new ServerExcelWriter(dataAccess);
 			writers.put(excelName, writer);
@@ -40,7 +41,7 @@ public class FileUtil {
 	}
 
 	public static Map<String, ServerExcelWriter> getWriters() {
-		if(writers == null){
+		if (writers == null) {
 			writers = Maps.newHashMap();
 			init();
 		}

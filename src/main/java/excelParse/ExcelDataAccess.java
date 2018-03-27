@@ -6,11 +6,11 @@ import com.google.common.collect.Table;
 
 public class ExcelDataAccess implements IDataAccess {
 
-	private IParse parse;
+	private IParse<Table<Integer, Short, String>> parse;
 
 	private Table<Integer, Short, String> data;
 
-	public ExcelDataAccess(IParse parse) {
+	public ExcelDataAccess(IParse<Table<Integer, Short, String>> parse) {
 		super();
 		this.parse = parse;
 	}
