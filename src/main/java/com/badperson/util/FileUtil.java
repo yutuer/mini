@@ -6,12 +6,12 @@ import java.util.Map;
 
 import com.badperson.config.Config;
 import com.badperson.moduleWrite.interfaces.IDataAccess;
-import com.badperson.moduleWrite.interfaces.IParse;
 import com.badperson.moduleWrite.writerParse.ServerExcelWriter;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
 
 import excelParse.ExcelDataAccess;
+import excelParse.IParse;
 import excelParse.StringSinglePageExcelParse;
 
 public class FileUtil {

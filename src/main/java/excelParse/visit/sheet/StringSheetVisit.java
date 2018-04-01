@@ -26,6 +26,7 @@ public class StringSheetVisit implements ISheetVisit<Table<Integer, Short, Strin
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public IRowVisit<String> rowVisit(int rowIndex) {
 		return new StringRowVisit(rowIndex, table);

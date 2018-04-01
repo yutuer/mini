@@ -1,4 +1,4 @@
-package com.badperson.moduleWrite.interfaces;
+package excelParse;
 
 public interface IParse<V> {
 

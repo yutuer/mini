@@ -1,7 +1,6 @@
 package excelParse;
 
 import com.badperson.moduleWrite.interfaces.IDataAccess;
-import com.badperson.moduleWrite.interfaces.IParse;
 import com.google.common.collect.Table;
 
 public class ExcelDataAccess implements IDataAccess {
